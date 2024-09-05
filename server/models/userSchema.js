@@ -1,58 +1,44 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
     fullName: {
         type: String,
-        required: [true, "Name Required!"],
+        required: true,
     },
     email: {
         type: String,
-        required: [true, "Email Required!"],
+        required: true,
+        unique: true,
     },
     phone: {
         type: String,
-        required: [true, "Phone Number Required!"],
     },
     aboutMe: {
         type: String,
-        required: [true, "About Me Field Is Required!"],
     },
     password: {
         type: String,
-        required: [true, "Password Is Required!"],
-        minLength: [8, "Password must contain at least 8 characters!"],
-        select: false,
+        required: true,
     },
-    avetar :{
-        public_id:{
-            type: String,
-            required: true,
-        },
-        url:{
-            type: String,
-            required: true,
-        },
-    },
-    resume :{
-        public_id:{
-            type: String,
-            required: true,
-        },
-        url:{
-            type: String,
-            required: true,
-        },
-    },
-    portfolioU:{
-        type: String,
-        required: [true, "portfoliio URL Is Required!"],
-    },
+    portfolioURL: String,
     githubURL: String,
     linkedInURL: String,
     facebookURL: String,
     instegramURL: String,
-    resetPasswordToken: String,
-    resetPasswordExpire: Date,
+    avatar: {
+        public_id: {
+            type: String,
+            required: true,
+        },
+        url: {
+            type: String,
+            required: true,
+        },
+    },
+    resume: {
+        public_id: String,
+        url: String,
+    },
 });
 
-export const UserModel = mongoose.model("User", userSchema);
+export const UserModel = mongoose.model('User', userSchema);
