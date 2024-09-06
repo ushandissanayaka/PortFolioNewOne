@@ -2,6 +2,7 @@ import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../middlewares/error.js";
 import { UserModel } from "../models/userSchema.js";
 import { v2 as cloudinary } from "cloudinary";
+import { generateToken } from "../utils/jwtToken.js";
 
 export const register = catchAsyncErrors(async (req, res, next) => {
     // Log the entire req.files object for debugging
@@ -65,6 +66,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
             linkedInURL,
             facebookURL,
             instegramURL,
+            mediumURL,
         } = req.body;
 
         // Ensure required fields are provided
@@ -73,7 +75,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
         }
 
         // Create new user document
-        const userModel = await UserModel.create({
+        const user = await UserModel.create({
             fullName,
             email,
             phone,
@@ -84,6 +86,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
             linkedInURL,
             facebookURL,
             instegramURL,
+            mediumURL,
             avatar: {
                 public_id: cloudinaryResponseForAvatar.public_id,
                 url: cloudinaryResponseForAvatar.secure_url,
@@ -97,12 +100,107 @@ export const register = catchAsyncErrors(async (req, res, next) => {
         });
 
         // Respond with success message
-        res.status(200).json({
-            success: true,
-            message: "User Registered",
-        });
+        generateToken(user, "User registered!", 201, res);
     } catch (error) {
         console.error("Registration Error:", error);
         return next(new ErrorHandler(error.message, 500));
     }
+});
+
+export const login = catchAsyncErrors(async(req,res,next)=>{
+    const { email, password } = req.body;
+    if(!email || !password){
+        return next(new ErrorHandler("Email And Password are required!"));
+    }
+    const user = await UserModel.findOne({ email}).select("+password");
+    if(!user){
+        return next(new ErrorHandler("Invalid Email or password!"));
+    }
+    const isPasswordMatch = await user.comparePassword(password);
+    if(!isPasswordMatch){
+        return next(new ErrorHandler("Invalid Email or password!"));
+    }
+    generateToken(user, "Logged In", 200, res);
+});
+
+export const logout = catchAsyncErrors(async(req, res, next) => {
+    res.status(200).cookie("token", "",{
+        expires: new Date(Date.now()),
+        httpOnly: true,
+       
+    }).json({
+        success: true,
+        message: "Logged out",
+    });
+});
+
+export const getUser = catchAsyncErrors(async(req, res, next ) =>{
+    const user = await UserModel.findById(req.user.id);
+    res.status(200).json({
+        success: true,
+        user,
+    })
+
+})
+
+export const updateProfile = catchAsyncErrors(async(req, res, next)=>{
+    const newUserData = {
+        fullName: req.body.fullName,
+        email: req.body.email,
+        phone: req.body.phone,
+        aboutMe: req.body.aboutMe,
+        portfolioURL: req.body.portfolioURL,
+        githubURL: req.body.githubURL,
+        linkedInURL: req.body.linkedInURL,
+        facebookURL: req.body.facebookURL,
+        instegramURL: req.body.instegramURL,
+        mediumURL: req.body.mediumURL,
+    }
+    if(req.files && req.files.avatar){
+        const avatar = req.files.avatar;
+        const user = await UserModel.findById(req.user.id);
+        const profileImageId = user.avatar.public_id;
+        await cloudinary.uploader.destroy(profileImageId);
+        
+            // Upload resume to Cloudinary
+       const cloudinaryResponse = await cloudinary.uploader.upload(
+             avatar.tempFilePath, 
+                { folder: "AVATARS" }
+            )
+        newUserData.avatar = {
+            public_id: cloudinaryResponse.public_id,
+            url: cloudinaryResponse.secure_url,
+
+        }
+
+    }
+    if(req.files && req.files.resume){
+        const resume = req.files.resume;
+        const user = await UserModel.findById(req.user.id);
+        const resumeId = user.resume.public_id;
+        await cloudinary.uploader.destroy(resumeId);
+        
+            // Upload resume to Cloudinary
+        const cloudinaryResponse = await cloudinary.uploader.upload(
+             resume.tempFilePath, 
+                { folder: "MY_RESUME" }
+            )
+        newUserData.resume = {
+            public_id: cloudinaryResponse.public_id,
+            url: cloudinaryResponse.secure_url,
+            
+        }
+
+    }
+    const user = await UserModel.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+
+    });
+    res.status(200).json({
+        success: true,
+        message: "profile updated",
+        user,
+    });
 });
