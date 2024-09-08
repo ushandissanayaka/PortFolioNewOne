@@ -3,6 +3,9 @@ import ErrorHandler from "../middlewares/error.js";
 import { UserModel } from "../models/userSchema.js";
 import { v2 as cloudinary } from "cloudinary";
 import { generateToken } from "../utils/jwtToken.js";
+import { sendEmail } from "../utils/sendEmaill.js";
+import crypto from "crypto"
+
 
 export const register = catchAsyncErrors(async (req, res, next) => {
     // Log the entire req.files object for debugging
@@ -203,4 +206,103 @@ export const updateProfile = catchAsyncErrors(async(req, res, next)=>{
         message: "profile updated",
         user,
     });
+});
+
+export const updaetPassword = catchAsyncErrors(async(req, res, next) => {
+    const {currentPassword, newPassword, confirmNewPassword} = req.body;
+    if(!currentPassword || !newPassword || !confirmNewPassword){
+        return next(new ErrorHandler("please fill all fields.", 400));
+    }
+    const user = await UserModel.findById(req.user.id).select("+password");
+    const isPasswordMatch = await user.comparePassword(currentPassword);
+    if(!isPasswordMatch){
+        return next(new ErrorHandler("Incorrect current password", 400));
+    }
+    if(newPassword !== confirmNewPassword){
+        return next(new ErrorHandler("New password and confirm password do not match !", 400));
+    }
+    user.password = newPassword;
+    await user.save();
+    res.status(200).json({
+        success:true,
+        message: "password Updated",
+    });
+});
+
+export const getUserForPortfolio = catchAsyncErrors(async(req, res, next) => {
+    const id = "66dae246f21521532dc676b0";
+    const user = await UserModel.findById(id);
+    res.status(200).json({
+        success: true,
+        user,
+    });
+
+});
+
+export const forgotPassword = catchAsyncErrors(async(req, res, index) => {
+    const user = await UserModel.findOne({ email: req.body.email });
+    if(!user){
+        return next(new ErrorHandler("user not found!",404));
+    }
+    const resetToken = user.getResetPasswordToken();
+    await user.save({ validateBeforeSave: false});
+    const resetPasswordUrl = `${process.env.DASHBOARD_URL}/password/reset/${resetToken}`;
+    const message = `Your reset passsword token is:- \n\n ${resetPasswordUrl} \n\n If you've not request for this please ignore it.`;
+
+    try {
+        await sendEmail({
+            email: user.email,
+            subject: "personal portfolio dashboard recovery password",
+            message,
+        });
+        res.status(200).json({
+            success: true,
+            message: `Email sent to ${user.email} successfully!`,
+        });
+
+    } catch (error) {
+        user.resetPasswordExpire = undefined,
+        user.resetPasswordToken = undefined,
+        await user.save();
+        return next(new ErrorHandler(error.message, 500));
+        
+    }
+})
+
+export const resetPassword = catchAsyncErrors(async (req, res, next) => {
+    const { token } = req.params;
+    
+    try {
+        // Hash the token received in params
+        const resetPasswordToken = crypto.createHash("sha256").update(token).digest("hex");
+
+        // Find user with matching reset token and check if it's not expired
+        const user = await UserModel.findOne({
+            resetPasswordToken,
+            resetPasswordExpire: { $gt: Date.now() },
+        });
+
+        // If no user found or token expired
+        if (!user) {
+            return next(new ErrorHandler("Reset password token is invalid or has expired", 400));
+        }
+
+        // Check if passwords match
+        if (req.body.password !== req.body.confirmPassword) {
+            return next(new ErrorHandler("Password and confirm password do not match", 400));
+        }
+
+        // Update user password and clear reset token and expiration
+        user.password = req.body.password;
+        user.resetPasswordExpire = undefined;
+        user.resetPasswordToken = undefined;
+
+        // Save the updated user
+        await user.save();
+
+        // Generate a new token and send the response
+        generateToken(user, "Password reset successfully!", 200, res);
+    } catch (error) {
+        return next(new ErrorHandler(error.message, 500));
+    }
 });
