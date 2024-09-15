@@ -8,6 +8,7 @@ class ErrorHandler extends Error{
 export const errorMiddleware = (err, req, res, next) => {
     err.message = err.message || "internal Server Error";
     err.statusCode = err.statusCode || 500;
+   
 
     if(err.code === 11000){
         const message = `Duplicate ${object.keys(err.keyValue)} Entered`;

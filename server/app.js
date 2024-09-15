@@ -7,6 +7,9 @@ import dbConnection from "./database/dbconnection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 import messageRouter from "./routes/messageRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import timeLineRouter from "./routes/timeLineRoutes.js";
+import applicationRouter from "./routes/softwareApplicationRoutes.js";
+import skillRouter from "./routes/skillRoutes.js";
 
 const app = express();
 
@@ -30,6 +33,10 @@ app.use(fileUpload({
 // Define API routes
 app.use("/api/v1/message", messageRouter);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/timeLine", timeLineRouter);
+app.use("/api/v1/softwareApplication", applicationRouter);
+app.use("/api/v1/skill", skillRouter);
+
 // Database connection
 dbConnection();
 
