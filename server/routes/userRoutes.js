@@ -1,7 +1,6 @@
 import express from "express";
 import { login, logout, register, getUser, updateProfile, updaetPassword, getUserForPortfolio, forgotPassword, resetPassword } from "../controller/userController.js";
 import { isAuthenticated } from "../middlewares/auth.js";
-
 const router = express.Router();
 
 

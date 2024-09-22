@@ -41,7 +41,7 @@ app.use("/api/v1/skill", skillRouter);
 app.use("/api/v1/project", projectRouter);
 
 // Database connection
-dbConnection();
+dbConnection(); 
 
 // Error handling middleware
 app.use(errorMiddleware);
