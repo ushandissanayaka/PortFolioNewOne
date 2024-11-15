@@ -99,11 +99,11 @@ const Profile = () => {
 
           </div>
 
-          <div className="grid gap-2">
-            <Label>Instagram URL</Label>
-            <Input defaultValue={user.instagramURL} disabled />
+          { <div className="grid gap-2">
+            <Label>Medium URL</Label>
+            <Input defaultValue={user.mediumURL} disabled />
 
-          </div>
+          </div> }
 
         </div>
       </div>
