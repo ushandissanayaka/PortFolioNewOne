@@ -174,24 +174,29 @@ export const logout = (  ) => async( dispatch )=>{
 };
 
 
-export const updatePassword = (currentPassword, newPassword, confirmNewPassword) => async(dispatch ) =>{
+export const updatePassword = (currentPassword, newPassword, confirmNewPassword) => async (dispatch) => {
     dispatch(userSlice.actions.updatePasswordRequest());
     try {
-        const {data} = await axios.put("http://localhost:4000/api/v1/user/update/password",
-            {currentPassword, newPassword, confirmNewPassword},
+        const { data } = await axios.put(
+            "http://localhost:4000/api/v1/user/update/password",
+            { currentPassword, newPassword, confirmNewPassword },
             {
                 withCredentials: true,
-                headers: {"Content-Type": "application/json"},
+                headers: { "Content-Type": "application/json" },
             }
         );
 
+        // Dispatch success action with the returned message
         dispatch(userSlice.actions.updatePasswordSuccess(data.message));
+
+        // Clear all errors
         dispatch(userSlice.actions.clearAllErrors());
     } catch (error) {
-        userSlice.actions.updatePasswordFailed(error.response.data.message)
+        // Dispatch failed action with the error message
+        dispatch(userSlice.actions.updatePasswordFailed(error.response?.data?.message || "An error occurred"));
     }
+};
 
-}
 
 
 export const updateProfile = (newData) => async(dispatch ) =>{
