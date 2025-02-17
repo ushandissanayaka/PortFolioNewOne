@@ -313,7 +313,7 @@ const HomePage = () => {
       return <Dashboard />;
     case "Add Project":
       return <AddProject />;
-    case "Add Skill":
+    case "Add Skills":
       return <AddSkill />;
     case "Add Application":
       return <AddApplication />;
