@@ -17,6 +17,7 @@ import "./App.css";
 import { getAllMessages } from './store/slices/messagesSlices'
 import { getAllTimeline } from './store/slices/timelineSlice'
 import { getAllSkills } from './store/slices/skillsSlice'
+import { getAllSoftwareApplications } from './store/slices/softwareApplicationSlice'
 
 const App = () => {
 
@@ -27,6 +28,7 @@ useEffect(()=>{
   dispatch(getAllMessages());
   dispatch(getAllTimeline());
   dispatch(getAllSkills());
+  dispatch(getAllSoftwareApplications)
 }, []);
 
 
