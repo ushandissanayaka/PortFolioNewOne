@@ -16,6 +16,7 @@ import { getUser } from './store/slices/userSlice';
 import "./App.css";
 import { getAllMessages } from './store/slices/messagesSlices'
 import { getAllTimeline } from './store/slices/timelineSlice'
+import { getAllSkills } from './store/slices/skillsSlice'
 
 const App = () => {
 
@@ -25,6 +26,7 @@ useEffect(()=>{
   dispatch(getUser());
   dispatch(getAllMessages());
   dispatch(getAllTimeline());
+  dispatch(getAllSkills());
 }, []);
 
 
