@@ -5,6 +5,7 @@ import messageReducer from "./slices/messagesSlices";
 import timelineReducer from "./slices/timelineSlice";
 import skillReducer from "./slices/skillsSlice"
 import softwareApplicationReducer from "./slices/softwareApplicationSlice";
+import projectReducer from "./slices/projectSlice"
 export const store = configureStore({
   reducer: {
     user: userReducer,
@@ -12,6 +13,8 @@ export const store = configureStore({
     Messages: messageReducer, // Fixed inconsistent naming
     timeline: timelineReducer,
     skill: skillReducer,
-    softwareApplication: softwareApplicationReducer
+    softwareApplication: softwareApplicationReducer,
+    project: projectReducer
+
   },
 });
