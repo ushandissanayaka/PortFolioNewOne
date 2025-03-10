@@ -46,7 +46,6 @@ useEffect(()=>{
         <Route path="/manage/projects" element={<ManageProjects/>}/>
         <Route path="/view/project/:id" element={<ViewProjects/>}/>
         <Route path="/update/project/:id" element={<UpdateProjects/>}/>
-       
       </Routes>
 
       <ToastContainer position="bottom-right" theme="dark"/>
