@@ -55,6 +55,24 @@ const skillSlice = createSlice({
             state.error = action.payload;
             state.message = null;
         },
+        updateSkillRequest(state) {
+            state.loading = true;
+            state.error = null;
+            state.message = null;
+        },
+        updateSkillSuccess(state, action) {
+            state.loading = false;
+            state.skills = state.skills.map(skill => 
+                skill._id === action.payload.id ? { ...skill, proficiency: action.payload.proficiency } : skill
+            );
+            state.error = null;
+            state.message = action.payload.message;
+        },
+        updateSkillFailed(state, action) {
+            state.loading = false;
+            state.error = action.payload;
+            state.message = null;
+        },
         resetSkillSlice(state) {
             state.error = null;
             state.loading = false;
@@ -126,6 +144,22 @@ export const deleteSkill = (skillId) => async (dispatch) => {
                 error.response?.data?.message || "Something went wrong"
             )
         );
+    }
+};
+
+// Thunk function to update a skill
+export const updateSkills = (id, proficiency) => async (dispatch) => {
+    dispatch(skillSlice.actions.updateSkillRequest());
+    try {
+        const { data } = await axios.put(
+            `http://localhost:4000/api/v1/skill/update/${id}`,
+            { proficiency },
+            { withCredentials: true, headers: { "Content-Type": "application/json" } }
+        );
+        dispatch(skillSlice.actions.updateSkillSuccess({ id, proficiency, message: data.message }));
+        dispatch(skillSlice.actions.clearAllErrors());
+    } catch (error) {
+        dispatch(skillSlice.actions.updateSkillFailed(error.response?.data?.message || "Something went wrong"));
     }
 };
 
