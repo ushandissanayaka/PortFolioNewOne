@@ -10,8 +10,8 @@ import ManageProjects from './pages/ManageProjects'
 import ViewProjects from './pages/ViewProjects'
 import UpdateProjects from './pages/UpdateProjects'
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch } from 'react-redux';
+import 'react-toastify/dist/ReactToastify.css'; 
+import { useDispatch } from 'react-redux';    
 import { getUser } from './store/slices/userSlice';
 import "./App.css";
 import { getAllMessages } from './store/slices/messagesSlices'
@@ -54,3 +54,4 @@ useEffect(()=>{
 }
 
 export default App
+
