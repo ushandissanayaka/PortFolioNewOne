@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom'; // Added useNavigate for navigation
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,29 +11,24 @@ import { clearAllProjectSliceErrors, deleteProject, getAllProjects, resetProject
 const ManageProjects = () => {
   const { loading, projects, error, message } = useSelector((state) => state.project);
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
-  // Fetch all projects on component mount
   useEffect(() => {
     dispatch(getAllProjects());
   }, [dispatch]);
 
-  // Handle delete project
   const handleDeleteProject = (id) => {
     dispatch(deleteProject(id));
   };
 
-  // Handle view project
   const handleViewProject = (id) => {
-    navigate(`/view/project/${id}`); // Redirect to the project view page
+    navigate(`/view/project/${id}`);
   };
 
-  // Handle update project
   const handleUpdateProject = (id) => {
-    navigate(`/update/project/${id}`); // Redirect to the project update page
+    navigate(`/update/project/${id}`);
   };
 
-  // Show error or success messages
   useEffect(() => {
     if (error) {
       toast.error(error);
@@ -42,7 +37,7 @@ const ManageProjects = () => {
     if (message) {
       toast.success(message);
       dispatch(resetProjectState());
-      dispatch(getAllProjects()); // Refresh the project list after deletion
+      dispatch(getAllProjects());
     }
   }, [dispatch, error, message]);
 
@@ -85,7 +80,7 @@ const ManageProjects = () => {
                         <Button
                           variant="outline"
                           className="mr-2"
-                          onClick={() => handleViewProject(project._id)} // View button
+                          onClick={() => handleViewProject(project._id)}
                           disabled={loading}
                         >
                           View
@@ -93,7 +88,7 @@ const ManageProjects = () => {
                         <Button
                           variant="outline"
                           className="mr-2"
-                          onClick={() => handleUpdateProject(project._id)} // Update button
+                          onClick={() => handleUpdateProject(project._id)}
                           disabled={loading}
                         >
                           Update

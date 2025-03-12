@@ -176,19 +176,7 @@ const Dashboard = () => {
                               </div>
                             </CardContent>
                             <CardFooter>
-                              <div className="flex gap-2">
-                                <Link to={`/update/skill/${element._id}`}>
-                                  <Button variant="outline">Update</Button>
-                                </Link>
-                                <Button
-                                  variant="outline"
-                                  onClick={() => {
-                                    console.log("Delete skill:", element._id);
-                                  }}
-                                >
-                                  Delete
-                                </Button>
-                              </div>
+                             
                             </CardFooter>
                           </Card>
                         );
