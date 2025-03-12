@@ -120,20 +120,20 @@ const Dashboard = () => {
                       </TableHeader>
                       <TableBody>
                         {projects.map((project) => (
-                          <TableRow key={project.id}>
+                          <TableRow key={project._id}>
                             <TableCell>{project.title}</TableCell>
-                            <TableCell className="hidden md:table-cell">{project.stack}</TableCell>
+                            <TableCell className="hidden md:table-cell">{project.stack.join(', ')}</TableCell>
                             <TableCell className="hidden md:table-cell">{project.deployed ? 'Yes' : 'No'}</TableCell>
                             <TableCell className="hidden md:table-cell">
-                              <Link to={`/update/project/${project.id}`} target="_blank" rel="noopener noreferrer">
+                              <Link to={`/update/project/${project._id}`}>
                                 <Button variant="outline">Update</Button>
                               </Link>
                             </TableCell>
                             <TableCell className="hidden md:table-cell">
                               {project.deployed ? (
-                                <Link to={project.url} target="_blank" rel="noopener noreferrer">
+                                <a href={project.projectLink} target="_blank" rel="noopener noreferrer">
                                   <Button variant="outline">Visit</Button>
-                                </Link>
+                                </a>
                               ) : (
                                 <Button variant="outline" disabled>Visit</Button>
                               )}
@@ -176,7 +176,7 @@ const Dashboard = () => {
                               </div>
                             </CardContent>
                             <CardFooter>
-                             
+                              {/* Add any footer content here */}
                             </CardFooter>
                           </Card>
                         );
@@ -217,7 +217,11 @@ const Dashboard = () => {
                               </TableCell>
                               <TableCell>
                                 {
-                                  loading && appId === element._id ? (<SpecialLoadingButton content={"Deleting"} width={"w-fit"} />) : <Button onClick={() => handleDeleteSoftwareApp(element._id)}>Delete</Button>
+                                  loading && appId === element._id ? (
+                                    <SpecialLoadingButton content={"Deleting"} width={"w-fit"} />
+                                  ) : (
+                                    <Button onClick={() => handleDeleteSoftwareApp(element._id)}>Delete</Button>
+                                  )
                                 }
                               </TableCell>
                             </TableRow>
@@ -280,4 +284,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard; 
+export default Dashboard;
