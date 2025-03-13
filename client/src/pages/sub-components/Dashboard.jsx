@@ -115,7 +115,7 @@ const Dashboard = () => {
                           <TableHead className="hidden md:table-cell">Stack</TableHead>
                           <TableHead className="hidden md:table-cell">Deployed</TableHead>
                           <TableHead className="hidden md:table-cell">Update</TableHead>
-                          <TableHead className="hidden md:table-cell">Visit</TableHead>
+                          <TableHead className="hidden md:table-cell">Banner</TableHead> {/* Banner column */}
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -130,12 +130,14 @@ const Dashboard = () => {
                               </Link>
                             </TableCell>
                             <TableCell className="hidden md:table-cell">
-                              {project.deployed ? (
-                                <a href={project.projectLink} target="_blank" rel="noopener noreferrer">
-                                  <Button variant="outline">Visit</Button>
-                                </a>
+                              {project.projectBanner ? (
+                                <img 
+                                  src={project.projectBanner.url} 
+                                  alt={project.title} 
+                                  className="w-20 h-10 object-cover rounded-md" 
+                                />
                               ) : (
-                                <Button variant="outline" disabled>Visit</Button>
+                                <span>No Banner</span>
                               )}
                             </TableCell>
                           </TableRow>
