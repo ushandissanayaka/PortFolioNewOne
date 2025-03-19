@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home'; // Corrected import for default export
 import ProjectView from './pages/ProjectView'; // Corrected import for default export
 import { ModeToggle } from './components/mode-toggle';
-import Footer from './pages/Footer';
+import Footer from './pages/sub-components/Footer';
 import { ToastContainer } from 'react-toastify';
 
 function App() {

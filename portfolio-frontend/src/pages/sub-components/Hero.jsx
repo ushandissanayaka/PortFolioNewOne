@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FaYoutube, FaInstagram, FaFacebook, FaLinkedin, FaGithub } from 'react-icons/fa'; // Importing icons from react-icons
 import { ExternalLink } from 'lucide-react';
-import profileImage from '../../images/profile.jpeg'; // Adjust the path to your local image
 import backgroundImage from '../../images/background.jpg'; // Import the background image
 
 const Hero = () => {
@@ -45,7 +44,7 @@ const Hero = () => {
 
   return (
     <div 
-      className='w-full flex flex-col md:flex-row justify-between items-center p-4 overflow-x-hidden min-h-screen relative'
+      className='w-full flex flex-col md:flex-row justify-between items-center p-4 min-h-screen relative overflow-hidden'
       style={{
         backgroundImage: `url(${backgroundImage})`, // Set the background image
         backgroundSize: 'cover', // Ensure the background covers the entire area
@@ -71,34 +70,45 @@ const Hero = () => {
 
         {/* Full Name */}
         <div>
-          <h1 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[2px] mb-4 text-white'>
+          <h1 className='text-tubeLight-effect font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[2px] mb-4 text-white'>
             Hey, I'm {user.fullName || "Guest"}
           </h1>
         </div>
 
         {/* Static Text with Typing Animation */}
-        <div className='w-full overflow-hidden'>
+        <div className='w-full max-w-[600px] overflow-hidden'>
           <h1
             className='typing-animation'
             style={{
               overflow: 'hidden', // Ensures the text is hidden until the typing effect completes
               whiteSpace: 'nowrap', // Keeps the text on a single line for larger screens
               borderRight: '0.15em solid orange', // Adds a caret effect
-              animation: 'typing 10s steps(40, end) infinite, blink-caret 0.75s step-end infinite',
+              animation: 'typing 5s steps(40, end) infinite, blink-caret 0.75s step-end infinite',
               fontSize: '1.2rem',
               lineHeight: '1.5',
               fontWeight: 'bold',
               color: '#fff', // Adjust text color as needed
+              width: '0', // Start with 0 width for typing effect
             }}
           >
-            FREELANCER, WEB DEVELOPER, MOBILE APP DEVELOPER, DESKTOP APP DEVELOPER
+            FREELANCER, WEB DEVELOPER, MOBILE APP DEVELOPER
           </h1>
         </div>
 
         {/* Social Media Icons */}
         <div className='w-fit px-5 py-2 bg-slate-50 rounded-[20px] flex gap-3 sm:gap-5 items-center mt-4 md:mt-8 lg:mt-10'>
+          {/* LinkedIn Icon */}
+          <Link to={user.linkedInURL || "https://www.linkedin.com/in/ushan-dissanayaka-01upd/"} target='_blank'>
+            <FaLinkedin className='text-sky-500 w-6 h-6 sm:w-7 sm:h-7' />
+          </Link>
+
+          {/* GitHub Icon */}
+          <Link to={user.githubURL || "https://github.com/ushandissanayaka"} target='_blank'>
+            <FaGithub className='text-black w-6 h-6 sm:w-7 sm:h-7' />
+          </Link>
+
           {/* YouTube Icon */}
-          <Link to={user.youtubeURL || "/"} target='_blank'>
+          <Link to={user.youtubeURL || ""} target='_blank'>
             <FaYoutube className='text-red-500 w-6 h-6 sm:w-7 sm:h-7' />
           </Link>
 
@@ -112,15 +122,7 @@ const Hero = () => {
             <FaFacebook className='text-blue-800 w-6 h-6 sm:w-7 sm:h-7' />
           </Link>
 
-          {/* LinkedIn Icon */}
-          <Link to={user.linkedInURL || "https://www.linkedin.com/in/ushan-dissanayaka-01upd/"} target='_blank'>
-            <FaLinkedin className='text-sky-500 w-6 h-6 sm:w-7 sm:h-7' />
-          </Link>
-
-          {/* GitHub Icon */}
-          <Link to={user.githubURL || "https://github.com/ushandissanayaka"} target='_blank'>
-            <FaGithub className='text-black w-6 h-6 sm:w-7 sm:h-7' />
-          </Link>
+          
         </div>
 
         {/* Buttons for GitHub and Resume */}
@@ -156,11 +158,18 @@ const Hero = () => {
       {/* Right Side - Profile Image */}
       <div className='w-full md:w-1/3 flex justify-center md:justify-end mt-8 md:mt-0 relative z-10 p-4'>
         <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80">
-          <img
-            src={profileImage} // Use the imported local image
-            alt="Profile"
-            className='rounded-full border-4 border-white shadow-lg w-full h-full object-cover'
-          />
+          {/* Profile Image */}
+          {user.avatar && user.avatar.url ? (
+            <img
+              src={user.avatar.url} // Use the avatar URL from the user data
+              alt={user.fullName || "Profile"}
+              className='rounded-full border-4 border-white shadow-lg w-full h-full object-cover'
+            />
+          ) : (
+            <div className='rounded-full border-4 border-white shadow-lg w-full h-full bg-gray-300 flex items-center justify-center text-2xl font-bold text-gray-600'>
+              {user.fullName ? user.fullName.charAt(0) : "G"}
+            </div>
+          )}
           {/* First Spinning Border (Clockwise - Dotted) */}
           <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-pink-700 border-r-pink-700 animate-spin-clockwise" style={{ borderStyle: 'dotted' }}></div>
           {/* Second Spinning Border (Counter-Clockwise - Solid) */}
