@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema({
     githubURL: String,
     linkedInURL: String,
     facebookURL: String,
-    instegramURL: String,
+    mediumURL: String,
     resetPasswordToken: String,
     resetPasswordExpire: Date,
 });

@@ -39,119 +39,126 @@ const ProjectsView = () => {
   }, [id]);
 
   return (
-    <div className='w-full min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center'>
-      {/* Main Content */}
-      <div className='w-full max-w-4xl mx-4 sm:mx-6 lg:mx-8'>
-        {/* Heading with "PROJECT DETAILS" */}
-        <div className='relative w-full text-center'>
-          <h1 className='flex gap-4 items-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[56px] md:leading-[67px] lg:leading-[90px] tracking-[10px] sm:tracking-[15px] mx-auto w-fit font-extrabold'>
+    <div className='w-full min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 py-10 sm:py-20 flex flex-col items-center'>
+      {/* Main Content Wrapper */}
+      <div className='w-full max-w-[95%] sm:max-w-3xl lg:max-w-6xl mx-auto'>
+        {/* Heading Section */}
+        <div className='relative w-full text-center mb-16'>
+          <h1 className='inline-flex gap-4 items-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight tracking-[10px] sm:tracking-[15px] font-extrabold'>
             PROJECT
             <span className='text-tubeLight-effect font-extrabold'>DETAILS</span>
           </h1>
 
-          {/* Line below the heading */}
-          <div className='absolute w-[90%] sm:w-[70%] md:w-[50%] h-1 left-1/2 transform -translate-x-1/2 top-15 sm:top-12 md:top-14 lg:top-16 bg-slate-200 dark:bg-gray-500'>
-            {/* Dots on the left side */}
-            <div className='absolute -left-4 sm:-left-6 top-1/2 transform -translate-y-1/2 flex gap-1'>
-              <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
-              <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
-              <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
-            </div>
+          {/* Centered Decorative Line */}
+          <div className='mt-8 flex justify-center'>
+            <div className='relative w-[80%] sm:w-[60%] md:w-[40%] h-1 bg-slate-200 dark:bg-gray-500'>
+              {/* Dots on the left side */}
+              <div className='absolute -left-6 top-1/2 transform -translate-y-1/2 flex gap-1'>
+                <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
+                <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
+              </div>
 
-            {/* Dots on the right side */}
-            <div className='absolute -right-4 sm:-right-6 top-1/2 transform -translate-y-1/2 flex gap-1'>
-              <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
-              <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
-              <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
-            </div>
+              {/* Dots on the right side */}
+              <div className='absolute -right-6 top-1/2 transform -translate-y-1/2 flex gap-1'>
+                <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
+                <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
+              </div>
 
-            {/* Moving black line */}
-            <div
-              className='absolute w-8 h-1 bg-blue-800 top-0 animate-move-line'
-              style={{
-                animation: 'moveLine 3s linear infinite',
-              }}
-            ></div>
+              {/* Moving highlight */}
+              <div
+                className='absolute w-8 h-1 bg-blue-800 top-0 animate-move-line'
+                style={{ animation: 'moveLine 3s linear infinite' }}
+              ></div>
+            </div>
           </div>
         </div>
 
         {/* Project Details Card */}
-        <div className='w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mt-8 sm:mt-16'>
+        <div className='bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-4 sm:p-8 md:p-12 lg:p-16 mx-auto'>
           {projectBanner && (
-            <div className='mb-6'>
+            <div className='mb-10 overflow-hidden rounded-xl'>
               <img
                 src={projectBanner}
                 alt="Project Banner"
-                className='w-full h-auto rounded-lg'
+                className='w-full h-auto object-cover max-h-[500px]'
               />
             </div>
           )}
-          <div className='space-y-4'>
-            <div>
-              <label className='block text-sm font-medium text-gray-700 dark:text-gray-300'>Title</label>
-              <input
-                type="text"
-                value={title}
-                readOnly
-                className='w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white'
-              />
+          
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
+            <div className='space-y-6 md:col-span-2'>
+              <div>
+                <label className='block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2'>Project Title</label>
+                <input
+                  type="text"
+                  value={title}
+                  readOnly
+                  className='w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white font-medium text-lg'
+                />
+              </div>
+              
+              <div>
+                <label className='block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2'>Description</label>
+                <textarea
+                  value={description}
+                  readOnly
+                  className='w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white h-48 leading-relaxed'
+                />
+              </div>
             </div>
-            <div>
-              <label className='block text-sm font-medium text-gray-700 dark:text-gray-300'>Description</label>
-              <textarea
-                value={description}
-                readOnly
-                className='w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white h-32'
-              />
+
+            <div className='space-y-6'>
+              <div>
+                <label className='block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2'>GitHub Repository</label>
+                <a
+                  href={gitRepoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className='truncate px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900 text-blue-600 dark:text-blue-400 block hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors'
+                >
+                  {gitRepoLink || "Not Available"}
+                </a>
+              </div>
+              
+              <div>
+                <label className='block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2'>Live Preview</label>
+                <a
+                  href={projectLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className='truncate px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900 text-blue-600 dark:text-blue-400 block hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors'
+                >
+                  {projectLink || "Not Deployed"}
+                </a>
+              </div>
             </div>
-            <div>
-              <label className='block text-sm font-medium text-gray-700 dark:text-gray-300'>Git Repo Link</label>
-              <a
-                href={gitRepoLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className='w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-blue-600 dark:text-blue-400 block'
-              >
-                {gitRepoLink}
-              </a>
-            </div>
-            <div>
-              <label className='block text-sm font-medium text-gray-700 dark:text-gray-300'>Project Link</label>
-              <a
-                href={projectLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className='w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-blue-600 dark:text-blue-400 block'
-              >
-                {projectLink}
-              </a>
-            </div>
-            <div>
-              <label className='block text-sm font-medium text-gray-700 dark:text-gray-300'>Technologies</label>
-              <input
-                type="text"
-                value={technologies.join(", ")} // Convert array to string
-                readOnly
-                className='w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white'
-              />
-            </div>
-            <div>
-              <label className='block text-sm font-medium text-gray-700 dark:text-gray-300'>Stack</label>
-              <input
-                type="text"
-                value={stack}
-                readOnly
-                className='w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white'
-              />
-            </div>
-            <div>
-              <label className='block text-sm font-medium text-gray-700 dark:text-gray-300'>Deployed?</label>
-              <input
-                type="text"
-                value={deployed ? "Yes" : "No"}
-                readOnly
-                className='w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white'
-              />
+
+            <div className='space-y-6'>
+              <div>
+                <label className='block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2'>Technologies Used</label>
+                <div className='flex flex-wrap gap-2 px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900 min-h-[50px]'>
+                   {technologies.map((tech, idx) => (
+                     <span key={idx} className='bg-blue-100 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm font-medium'>
+                       {tech}
+                     </span>
+                   ))}
+                </div>
+              </div>
+              
+              <div className='grid grid-cols-2 gap-4'>
+                <div>
+                  <label className='block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2'>Stack</label>
+                  <div className='px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white font-medium'>
+                    {stack}
+                  </div>
+                </div>
+                <div>
+                  <label className='block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2'>Status</label>
+                  <div className='px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white font-medium'>
+                    {deployed ? "✅ Deployed" : "🚧 In Progress"}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

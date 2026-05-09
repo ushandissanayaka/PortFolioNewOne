@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 const About = () => {
   const [user, setUser] = useState({});
@@ -9,13 +10,11 @@ const About = () => {
   useEffect(() => {
     const getMyProfile = async () => {
       try {
-        // Fetch user data from the backend
-        const { data } = await axios.get("http://localhost:4000/api/v1/user/me/portfoilo", { 
-          withCredentials: true 
+        const { data } = await axios.get("http://localhost:4000/api/v1/user/me/portfoilo", {
+          withCredentials: true
         });
-
         if (data.success && data.user) {
-          setUser(data.user); // Set the user data in state
+          setUser(data.user);
         } else {
           setError("User data not found in the response.");
         }
@@ -26,111 +25,114 @@ const About = () => {
         setLoading(false);
       }
     };
-
-    getMyProfile(); // Call the function to fetch user data
+    getMyProfile();
   }, []);
 
   if (loading) {
-    return <div className="flex justify-center items-center h-screen bg-gray-100 dark:bg-gray-900">Loading...</div>;
+    return <div className="flex justify-center items-center h-screen bg-gray-100 dark:bg-black">Loading...</div>;
   }
 
   if (error) {
-    return <div className="flex justify-center items-center h-screen bg-gray-100 dark:bg-gray-900">Error: {error}</div>;
+    return <div className="flex justify-center items-center h-screen bg-gray-100 dark:bg-black">Error: {error}</div>;
   }
 
   return (
-    <div className='w-full flex flex-col overflow-x-hidden min-h-screen px-4 sm:px-6 lg:px-8 py-8 sm:py-12 bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800'>
+    <div className='w-full flex flex-col overflow-x-hidden min-h-screen px-4 sm:px-6 lg:px-8 py-8 sm:py-12 bg-gradient-to-b from-gray-100 to-gray-200 dark:from-black dark:to-black'>
       {/* Heading Section */}
       <div className='relative'>
-        {/* Heading with "ABOUT ME" */}
         <h1 className='flex gap-4 items-center text-[2rem] sm:text-[2.75rem] md:text-[3rem] lg:text-[3.8rem] leading-[56px] md:leading-[67px] lg:leading-[90px] tracking-[15px] mx-auto w-fit font-extrabold'>
           ABOUT
           <span className='text-tubeLight-effect font-extrabold'>ME</span>
         </h1>
 
-        {/* Line below the heading */}
+        {/* Decorative Line */}
         <div className='absolute w-[90%] sm:w-[70%] md:w-[50%] h-1 left-1/2 transform -translate-x-1/2 top-15 sm:top-12 md:top-14 lg:top-16 bg-slate-200 dark:bg-gray-500'>
-          {/* Dots on the left side */}
           <div className='absolute -left-6 top-1/2 transform -translate-y-1/2 flex gap-1'>
             <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
             <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
             <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
           </div>
-
-          {/* Dots on the right side */}
           <div className='absolute -right-6 top-1/2 transform -translate-y-1/2 flex gap-1'>
             <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
             <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
             <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
           </div>
-
-          {/* Moving black line */}
           <div
-            className='absolute w-8 h-1 bg-blue-700 top-0 animate-move-line'
-            style={{
-              animation: 'moveLine 3s linear infinite',
-            }}
+            className='absolute w-8 h-1 bg-blue-700 top-0'
+            style={{ animation: 'moveLine 3s linear infinite' }}
           ></div>
         </div>
       </div>
 
-      {/* Additional Content */}
-      <div className='grid md:grid-cols-2 my-8 sm:my-12 gap-8 sm:gap-14 flex-grow'>
-        {/* Image Section */}
-        <div className='flex justify-center items-center'>
+      {/* Main Content Grid */}
+      <div className='grid md:grid-cols-2 my-8 sm:my-12 gap-8 sm:gap-14 flex-grow items-center'>
+
+        {/* Image Section — Slides from LEFT */}
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className='flex justify-center items-center'
+        >
           <img
             src={user.avatar && user.avatar.url}
             alt={user.fullName || "User Avatar"}
-            className='bg-white p-2 sm:p-4 rotate-[25deg] h-[180px] sm:h-[220px] md:h-[280px] lg:h-[350px]'
+            className='bg-white p-2 sm:p-4 h-[260px] sm:h-[360px] md:h-[460px] lg:h-[560px] shadow-xl rounded-2xl'
           />
-        </div>
+        </motion.div>
 
-        {/* About Me Section */}
+        {/* Text Section — Paragraphs slide from RIGHT with staggered delay */}
         <div className='flex justify-center flex-col tracking-[1px] text-base sm:text-xl gap-4 sm:gap-5'>
-          <p>I am a full-stack developer with a strong foundation in modern web and mobile application development. 
-            With expertise in both frontend and backend technologies, I specialize in building scalable, efficient,
-             and user-friendly applications. My main focus areas are Java, React, Node.js, MongoDB, and MySQL. 
-             I have experience working with various frontend frameworks, including React.js for web applications and React Native for mobile development.
- On the backend, I leverage Node.js and Express.js to create robust REST APIs and microservices, ensuring high performance and scalability.
-  Additionally, I have hands-on experience working with relational and NoSQL databases, including MySQL, PostgreSQL, MS SQL, and MongoDB, allowing me to design optimized and structured data storage solutions.
-          </p>
-          <p>
-          In terms of version control and collaboration, I am well-versed in Git and GitHub, 
-          which helps me maintain efficient workflows, collaborate with teams, and manage code 
-          repositories effectively.Currently, I am expanding my expertise by studying ASP.NET, Docker,
-           and AWS hosting, which allows me to build more versatile and enterprise-level applications.
-            Learning cloud computing and containerization enables me to deploy and manage applications 
-            efficiently in various environments.
-          </p>
+          <motion.p
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+          >
+            I am a Freelancer Web Developer, Mobile App Developer, Web Designer,
+            Content Creator, and Editor with a strong foundation in modern web and mobile
+            application development. With expertise in both frontend and backend technologies,
+            I specialize in building scalable, efficient, and user-friendly applications. My core technical
+            skills include Java, Spring Boot, React.js, Node.js, MongoDB, MySQL, and Oracle Database, allowing me to develop complete
+            end-to-end solutions across multiple platforms and industries.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+          >
+            I have hands-on experience working with modern frontend and mobile technologies,
+            including React.js for dynamic web applications and React Native for cross-platform mobile app development.
+            On the backend, I use Node.js, Express.js, and Spring Boot to build secure, high-performance REST APIs, enterprise-level systems,
+            and scalable microservices architectures. I am also experienced with database management and optimization using MongoDB, MySQL, and Oracle Database,
+            ensuring reliable and efficient data handling for complex applications.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
+          >
+            In addition to software development, I am proficient in Git and GitHub for version control and collaborative development workflows.
+            Currently, I am expanding my knowledge in ASP.NET, Docker, AWS hosting, and Serverless Technologies to strengthen my expertise in cloud-native and scalable application deployment.
+            Beyond coding, I actively share my knowledge as a tech blogger on Medium, where I publish tutorials, insights, and best practices related to full-stack development, modern web technologies,
+            and software engineering.
+          </motion.p>
         </div>
       </div>
 
-      {/* Centered Paragraph */}
-      <div className='w-full flex justify-center mb-8 sm:mb-12'>
-        <p className='tracking-[1px] text-base sm:text-xl text-center max-w-2xl px-4'>
-        Beyond development, I am also a tech blogger on Medium, where I share insights, tutorials, 
-        and best practices on full-stack development, web technologies, and software engineering.
-         I enjoy teaching, mentoring, and contributing to the developer community by writing articles 
-         and sharing my knowledge with others.
-        </p>
-      </div>
-
-      {/* CSS for the moving line animation */}
-      <style>
-        {`
-          @keyframes moveLine {
-            0% {
-              left: 0;
-            }
-            50% {
-              left: calc(100% - 2rem); /* Adjust based on the width of the line */
-            }
-            100% {
-              left: 0;
-            }
-          }
-        `}
-      </style>
+      {/* CSS for moving line */}
+      <style>{`
+        @keyframes moveLine {
+          0% { left: 0; }
+          50% { left: calc(100% - 2rem); }
+          100% { left: 0; }
+        }
+      `}</style>
     </div>
   );
 };

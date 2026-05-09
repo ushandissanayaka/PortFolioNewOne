@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { FaYoutube, FaInstagram, FaFacebook, FaLinkedin, FaGithub } from 'react-icons/fa'; // Importing icons from react-icons
+import { FaYoutube, FaMedium, FaFacebook, FaLinkedin, FaGithub } from 'react-icons/fa'; // Importing icons from react-icons
 import { ExternalLink } from 'lucide-react';
-import backgroundImage from '../../images/background.jpg'; // Import the background image
+import Plasma from '../../components/ui/Plasma';
 
 const Hero = () => {
   const [user, setUser] = useState({});
@@ -14,8 +14,8 @@ const Hero = () => {
     const getMyProfile = async () => {
       try {
         // Fetch user data from the backend
-        const { data } = await axios.get("http://localhost:4000/api/v1/user/me/portfoilo", { 
-          withCredentials: true 
+        const { data } = await axios.get("http://localhost:4000/api/v1/user/me/portfoilo", {
+          withCredentials: true
         });
 
         if (data.success && data.user) {
@@ -42,26 +42,46 @@ const Hero = () => {
     return <div className="flex justify-center items-center h-screen">Error: {error}</div>;
   }
 
+  // Profile Image Markup
+  const profileImage = (
+    <div className="relative aspect-square flex-shrink-0 w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-[400px] lg:h-[400px] hero-profile-animation">
+      {user.avatar && user.avatar.url ? (
+        <img
+          src={user.avatar.url}
+          alt={user.fullName || "Profile"}
+          className='rounded-full border-8 border-[#B2BEB5] shadow-[0_0_25px_rgba(255,255,255,0.8)] w-full h-full object-cover'
+        />
+      ) : (
+        <div className='rounded-full border-8 border-[#B2BEB5] shadow-[0_0_25px_rgba(255,255,255,0.8)] w-full h-full bg-gray-300 flex items-center justify-center text-2xl font-bold text-gray-600'>
+          {user.fullName ? user.fullName.charAt(0) : "G"}
+        </div>
+      )}
+    </div>
+  );
+
   return (
-    <div 
-      className='w-full flex flex-col md:flex-row justify-between items-center p-4 min-h-screen relative overflow-hidden'
-      style={{
-        backgroundImage: `url(${backgroundImage})`, // Set the background image
-        backgroundSize: 'cover', // Ensure the background covers the entire area
-        backgroundPosition: 'center', // Center the background image
-        backgroundRepeat: 'no-repeat', // Prevent the background from repeating
-      }}
-    >
-      {/* Gradient Overlay for Left Side */}
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          background: 'linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%)', // Darker on the left, fading to transparent
-        }}
-      ></div>
+    <div className='w-full flex flex-col md:flex-row justify-between items-center p-4 min-h-screen relative overflow-hidden bg-black'>
+
+      {/* Plasma animated background */}
+      <div className="absolute inset-0 z-0">
+        <Plasma
+          color="#6940FF"
+          speed={0.6}
+          direction="forward"
+          scale={1.1}
+          opacity={0.8}
+          mouseInteractive={true}
+        />
+      </div>
+
+      {/* Gradient overlay for text readability */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 60%, transparent 100%)' }}
+      />
 
       {/* Left Side Content */}
-      <div className='w-full md:w-2/3 flex flex-col justify-center items-center md:items-start text-center md:text-left relative z-10 p-4'>
+      <div className='w-full md:w-1/2 lg:w-2/3 flex flex-col justify-center items-center lg:items-start text-center lg:text-left relative z-10 p-4'>
         {/* Online Indicator */}
         <div className='flex items-center gap-2 mb-2'>
           <span className='bg-green-400 rounded-full h-2 w-2'></span>
@@ -75,6 +95,11 @@ const Hero = () => {
           </h1>
         </div>
 
+        {/* Mobile Profile Image - Under Name */}
+        <div className="md:hidden flex justify-center w-full my-6">
+          {profileImage}
+        </div>
+
         {/* Static Text with Typing Animation */}
         <div className='w-full max-w-[600px] overflow-hidden'>
           <h1
@@ -83,7 +108,7 @@ const Hero = () => {
               overflow: 'hidden', // Ensures the text is hidden until the typing effect completes
               whiteSpace: 'nowrap', // Keeps the text on a single line for larger screens
               borderRight: '0.15em solid orange', // Adds a caret effect
-              animation: 'typing 5s steps(40, end) infinite, blink-caret 0.75s step-end infinite',
+              animation: 'typing 10s steps(100, end) infinite, blink-caret 0.75s step-end infinite',
               fontSize: '1.2rem',
               lineHeight: '1.5',
               fontWeight: 'bold',
@@ -91,7 +116,7 @@ const Hero = () => {
               width: '0', // Start with 0 width for typing effect
             }}
           >
-            FREELANCER, WEB DEVELOPER, MOBILE APP DEVELOPER
+            FREELANCER,WEB DEVELOPER, MOBILE APP DEVELOPER, WEB DESIGNER, CONTENT CREATOR, EDITOR
           </h1>
         </div>
 
@@ -99,30 +124,28 @@ const Hero = () => {
         <div className='w-fit px-5 py-2 bg-slate-50 rounded-[20px] flex gap-3 sm:gap-5 items-center mt-4 md:mt-8 lg:mt-10'>
           {/* LinkedIn Icon */}
           <Link to={user.linkedInURL || "https://www.linkedin.com/in/ushan-dissanayaka-01upd/"} target='_blank'>
-            <FaLinkedin className='text-sky-500 w-6 h-6 sm:w-7 sm:h-7' />
+            <FaLinkedin className='text-sky-500 w-6 h-6 sm:w-7 sm:h-7 transition-all duration-300 hover:scale-125 active:scale-110' />
           </Link>
 
           {/* GitHub Icon */}
           <Link to={user.githubURL || "https://github.com/ushandissanayaka"} target='_blank'>
-            <FaGithub className='text-black w-6 h-6 sm:w-7 sm:h-7' />
+            <FaGithub className='text-black w-6 h-6 sm:w-7 sm:h-7 transition-all duration-300 hover:scale-125 active:scale-110' />
           </Link>
 
           {/* YouTube Icon */}
           <Link to={user.youtubeURL || ""} target='_blank'>
-            <FaYoutube className='text-red-500 w-6 h-6 sm:w-7 sm:h-7' />
+            <FaYoutube className='text-red-500 w-6 h-6 sm:w-7 sm:h-7 transition-all duration-300 hover:scale-125 active:scale-110' />
           </Link>
 
-          {/* Instagram Icon */}
-          <Link to={user.instegramURL || "/"} target='_blank'>
-            <FaInstagram className="text-pink-500 w-6 h-6 sm:w-7 sm:h-7" />
+          {/* Medium Icon */}
+          <Link to={user.mediumURL || "https://medium.com/@ushandissanayaka879"} target='_blank'>
+            <FaMedium className="text-black w-6 h-6 sm:w-7 sm:h-7 transition-all duration-300 hover:scale-125 active:scale-110" />
           </Link>
 
           {/* Facebook Icon */}
           <Link to={user.facebookURL || "https://web.facebook.com/profile.php?id=100073905847454"} target='_blank'>
-            <FaFacebook className='text-blue-800 w-6 h-6 sm:w-7 sm:h-7' />
+            <FaFacebook className='text-blue-800 w-6 h-6 sm:w-7 sm:h-7 transition-all duration-300 hover:scale-125 active:scale-110' />
           </Link>
-
-          
         </div>
 
         {/* Buttons for GitHub and Resume */}
@@ -151,30 +174,13 @@ const Hero = () => {
         </div>
 
         {/* About Me Section */}
-        <p className='mt-8 text-lg sm:text-xl tracking-[2px] text-white text-center md:text-left'>{user.aboutMe}</p>
+        <p className='mt-8 text-lg sm:text-xl tracking-[2px] text-white text-center lg:text-left'>{user.aboutMe}</p>
         <hr className='my-8 md:my-10 w-full max-w-2xl border-gray-700' />
       </div>
 
-      {/* Right Side - Profile Image */}
-      <div className='w-full md:w-1/3 flex justify-center md:justify-end mt-8 md:mt-0 relative z-10 p-4'>
-        <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-80 lg:h-80">
-          {/* Profile Image */}
-          {user.avatar && user.avatar.url ? (
-            <img
-              src={user.avatar.url} // Use the avatar URL from the user data
-              alt={user.fullName || "Profile"}
-              className='rounded-full border-4 border-white shadow-lg w-full h-full object-cover'
-            />
-          ) : (
-            <div className='rounded-full border-4 border-white shadow-lg w-full h-full bg-gray-300 flex items-center justify-center text-2xl font-bold text-gray-600'>
-              {user.fullName ? user.fullName.charAt(0) : "G"}
-            </div>
-          )}
-          {/* First Spinning Border (Clockwise - Dotted) */}
-          <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-pink-700 border-r-pink-700 animate-spin-clockwise" style={{ borderStyle: 'dotted' }}></div>
-          {/* Second Spinning Border (Counter-Clockwise - Solid) */}
-          <div className="absolute inset-0 rounded-full border-4 border-transparent border-b-blue-700 border-l-blue-700 animate-spin-counter-clockwise"></div>
-        </div>
+      {/* Right Side - Profile Image (Desktop Only) */}
+      <div className='hidden md:flex w-full md:w-1/2 lg:w-1/3 justify-center lg:justify-end mt-8 md:mt-0 relative z-10 p-4'>
+        {profileImage}
       </div>
 
       {/* Inline CSS for Typing Animation and Border Animations */}
@@ -201,30 +207,14 @@ const Hero = () => {
             }
           }
 
-          @keyframes spin-clockwise {
-            0% {
-              transform: rotate(0deg);
-            }
-            100% {
-              transform: rotate(360deg);
-            }
+          @keyframes hero-bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
           }
 
-          @keyframes spin-counter-clockwise {
-            0% {
-              transform: rotate(0deg);
-            }
-            100% {
-              transform: rotate(-360deg);
-            }
-          }
-
-          .animate-spin-clockwise {
-            animation: spin-clockwise 3s linear infinite;
-          }
-
-          .animate-spin-counter-clockwise {
-            animation: spin-counter-clockwise 3s linear infinite;
+          .hero-profile-animation {
+            animation: hero-bounce 3s infinite ease-in-out;
           }
 
           /* Typing Animation for Mobile Devices */

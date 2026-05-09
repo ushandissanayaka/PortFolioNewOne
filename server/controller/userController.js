@@ -32,7 +32,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
 
         // Upload avatar to Cloudinary
         const cloudinaryResponseForAvatar = await cloudinary.uploader.upload(
-            avatar.tempFilePath, 
+            avatar.tempFilePath,
             { folder: "AVATARS" }
         );
 
@@ -47,7 +47,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
         if (resume) {
             // Upload resume to Cloudinary
             cloudinaryResponseForResume = await cloudinary.uploader.upload(
-                resume.tempFilePath, 
+                resume.tempFilePath,
                 { folder: "MY_RESUME" }
             );
 
@@ -68,7 +68,6 @@ export const register = catchAsyncErrors(async (req, res, next) => {
             githubURL,
             linkedInURL,
             facebookURL,
-            instegramURL,
             mediumURL,
         } = req.body;
 
@@ -88,7 +87,6 @@ export const register = catchAsyncErrors(async (req, res, next) => {
             githubURL,
             linkedInURL,
             facebookURL,
-            instegramURL,
             mediumURL,
             avatar: {
                 public_id: cloudinaryResponseForAvatar.public_id,
@@ -110,34 +108,34 @@ export const register = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-export const login = catchAsyncErrors(async(req,res,next)=>{
+export const login = catchAsyncErrors(async (req, res, next) => {
     const { email, password } = req.body;
-    if(!email || !password){
+    if (!email || !password) {
         return next(new ErrorHandler("Email And Password are required!"));
     }
-    const user = await UserModel.findOne({ email}).select("+password");
-    if(!user){
+    const user = await UserModel.findOne({ email }).select("+password");
+    if (!user) {
         return next(new ErrorHandler("Invalid Email or password!"));
     }
     const isPasswordMatch = await user.comparePassword(password);
-    if(!isPasswordMatch){
+    if (!isPasswordMatch) {
         return next(new ErrorHandler("Invalid Email or password!"));
     }
     generateToken(user, "Logged In", 200, res);
 });
 
-export const logout = catchAsyncErrors(async(req, res, next) => {
-    res.status(200).cookie("token", "",{
+export const logout = catchAsyncErrors(async (req, res, next) => {
+    res.status(200).cookie("token", "", {
         expires: new Date(Date.now()),
         httpOnly: true,
-       
+
     }).json({
         success: true,
         message: "Logged out",
     });
 });
 
-export const getUser = catchAsyncErrors(async(req, res, next ) =>{
+export const getUser = catchAsyncErrors(async (req, res, next) => {
     const user = await UserModel.findById(req.user.id);
     res.status(200).json({
         success: true,
@@ -146,7 +144,7 @@ export const getUser = catchAsyncErrors(async(req, res, next ) =>{
 
 })
 
-export const updateProfile = catchAsyncErrors(async(req, res, next)=>{
+export const updateProfile = catchAsyncErrors(async (req, res, next) => {
     const newUserData = {
         fullName: req.body.fullName,
         email: req.body.email,
@@ -156,20 +154,19 @@ export const updateProfile = catchAsyncErrors(async(req, res, next)=>{
         githubURL: req.body.githubURL,
         linkedInURL: req.body.linkedInURL,
         facebookURL: req.body.facebookURL,
-        instegramURL: req.body.instegramURL,
         mediumURL: req.body.mediumURL,
     }
-    if(req.files && req.files.avatar){
+    if (req.files && req.files.avatar) {
         const avatar = req.files.avatar;
         const user = await UserModel.findById(req.user.id);
         const profileImageId = user.avatar.public_id;
         await cloudinary.uploader.destroy(profileImageId);
-        
-            // Upload resume to Cloudinary
-       const cloudinaryResponse = await cloudinary.uploader.upload(
-             avatar.tempFilePath, 
-                { folder: "AVATARS" }
-            )
+
+        // Upload resume to Cloudinary
+        const cloudinaryResponse = await cloudinary.uploader.upload(
+            avatar.tempFilePath,
+            { folder: "AVATARS" }
+        )
         newUserData.avatar = {
             public_id: cloudinaryResponse.public_id,
             url: cloudinaryResponse.secure_url,
@@ -177,21 +174,21 @@ export const updateProfile = catchAsyncErrors(async(req, res, next)=>{
         }
 
     }
-    if(req.files && req.files.resume){
+    if (req.files && req.files.resume) {
         const resume = req.files.resume;
         const user = await UserModel.findById(req.user.id);
         const resumeId = user.resume.public_id;
         await cloudinary.uploader.destroy(resumeId);
-        
-            // Upload resume to Cloudinary
+
+        // Upload resume to Cloudinary
         const cloudinaryResponse = await cloudinary.uploader.upload(
-             resume.tempFilePath, 
-                { folder: "MY_RESUME" }
-            )
+            resume.tempFilePath,
+            { folder: "MY_RESUME" }
+        )
         newUserData.resume = {
             public_id: cloudinaryResponse.public_id,
             url: cloudinaryResponse.secure_url,
-            
+
         }
 
     }
@@ -208,28 +205,28 @@ export const updateProfile = catchAsyncErrors(async(req, res, next)=>{
     });
 });
 
-export const updaetPassword = catchAsyncErrors(async(req, res, next) => {
-    const {currentPassword, newPassword, confirmNewPassword} = req.body;
-    if(!currentPassword || !newPassword || !confirmNewPassword){
+export const updaetPassword = catchAsyncErrors(async (req, res, next) => {
+    const { currentPassword, newPassword, confirmNewPassword } = req.body;
+    if (!currentPassword || !newPassword || !confirmNewPassword) {
         return next(new ErrorHandler("please fill all fields.", 400));
     }
     const user = await UserModel.findById(req.user.id).select("+password");
     const isPasswordMatch = await user.comparePassword(currentPassword);
-    if(!isPasswordMatch){
+    if (!isPasswordMatch) {
         return next(new ErrorHandler("Incorrect current password", 400));
     }
-    if(newPassword !== confirmNewPassword){
+    if (newPassword !== confirmNewPassword) {
         return next(new ErrorHandler("New password and confirm password do not match !", 400));
     }
     user.password = newPassword;
     await user.save();
     res.status(200).json({
-        success:true,
+        success: true,
         message: "password Updated",
     });
 });
 
-export const getUserForPortfolio = catchAsyncErrors(async(req, res, next) => {
+export const getUserForPortfolio = catchAsyncErrors(async (req, res, next) => {
     const id = "66dae246f21521532dc676b0";
     const user = await UserModel.findById(id);
     res.status(200).json({
@@ -239,13 +236,13 @@ export const getUserForPortfolio = catchAsyncErrors(async(req, res, next) => {
 
 });
 
-export const forgotPassword = catchAsyncErrors(async(req, res, index) => {
+export const forgotPassword = catchAsyncErrors(async (req, res, index) => {
     const user = await UserModel.findOne({ email: req.body.email });
-    if(!user){
-        return next(new ErrorHandler("user not found!",404));
+    if (!user) {
+        return next(new ErrorHandler("user not found!", 404));
     }
     const resetToken = user.getResetPasswordToken();
-    await user.save({ validateBeforeSave: false});
+    await user.save({ validateBeforeSave: false });
     const resetPasswordUrl = `${process.env.DASHBOARD_URL}/password/reset/${resetToken}`;
     const message = `Your reset passsword token is:- \n\n ${resetPasswordUrl} \n\n If you've not request for this please ignore it.`;
 
@@ -262,16 +259,16 @@ export const forgotPassword = catchAsyncErrors(async(req, res, index) => {
 
     } catch (error) {
         user.resetPasswordExpire = undefined,
-        user.resetPasswordToken = undefined,
-        await user.save();
+            user.resetPasswordToken = undefined,
+            await user.save();
         return next(new ErrorHandler(error.message, 500));
-        
+
     }
 })
 
 export const resetPassword = catchAsyncErrors(async (req, res, next) => {
     const { token } = req.params;
-    
+
     try {
         // Hash the token received in params
         const resetPasswordToken = crypto.createHash("sha256").update(token).digest("hex");

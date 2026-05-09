@@ -21,7 +21,7 @@ const UpdateProfile = () => {
   const [portfolioURL, setPortfolioURL] = useState(user?.portfolioURL || '');
   const [linkedInURL, setLinkedURL] = useState(user?.linkedInURL || '');
   const [githubURL, setGithubURL] = useState(user?.githubURL || '');
-  const [instagramURL, setInstagramURL] = useState(user?.instagramURL || '');
+
   const [facebookURL, setFacebookURL] = useState(user?.facebookURL || '');
   const [mediumURL, setMediumURL] = useState(user?.mediumURL || '');
   const [avatar, setAvatar] = useState(user?.avatar?.url || '');
@@ -58,7 +58,7 @@ const UpdateProfile = () => {
     formData.append('portfolioURL', portfolioURL);
     formData.append('githubURL', githubURL);
     formData.append('linkedInURL', linkedInURL);
-    formData.append('instagramURL', instagramURL);
+
     formData.append('facebookURL', facebookURL);
     formData.append('mediumURL', mediumURL);
     formData.append('avatar', avatar);
@@ -122,7 +122,7 @@ const UpdateProfile = () => {
           <InputField label="Portfolio URL" value={portfolioURL} onChange={setPortfolioURL} />
           <InputField label="Github URL" value={githubURL} onChange={setGithubURL} />
           <InputField label="LinkedIn URL" value={linkedInURL} onChange={setLinkedURL} />
-          <InputField label="Instagram URL" value={instagramURL} onChange={setInstagramURL} />
+
           <InputField label="Facebook URL" value={facebookURL} onChange={setFacebookURL} />
           <InputField label="Medium URL" value={mediumURL} onChange={setMediumURL} />
 

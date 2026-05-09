@@ -45,7 +45,7 @@ const ViewProjects = () => {
         <div style={styles.field}>
           {projectBanner && (
             <div style={styles.field}>
-             
+
               <img
                 src={projectBanner}
                 alt="Project Banner"

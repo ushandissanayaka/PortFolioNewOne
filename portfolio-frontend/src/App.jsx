@@ -25,7 +25,7 @@ function App() {
             </Routes>
           </div>
           <Footer />
-          <ToastContainer position='bottom-right' theme='dark'/>
+          <ToastContainer position='bottom-right' theme='dark' />
         </Router>
       </ThemeProvider>
     </>

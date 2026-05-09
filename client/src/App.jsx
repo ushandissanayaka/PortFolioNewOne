@@ -5,7 +5,7 @@ import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import ManageSkills from './pages/ManageSkills'
-import ManageTimeLine from './pages/ManageTimeLine'
+import ManageMyWorks from './pages/ManageMyWorks'
 import ManageProjects from './pages/ManageProjects'
 import ViewProjects from './pages/ViewProjects'
 import UpdateProjects from './pages/UpdateProjects'
@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux';
 import { getUser } from './store/slices/userSlice';
 import "./App.css";
 import { getAllMessages } from './store/slices/messagesSlices'
-import { getAllTimeline } from './store/slices/timelineSlice'
+import { getAllMyWorks } from './store/slices/myWorksSlice'
 import { getAllSkills } from './store/slices/skillsSlice'
 import { getAllSoftwareApplications } from './store/slices/softwareApplicationSlice'
 import { getAllProjects } from './store/slices/projectSlice'
@@ -27,11 +27,11 @@ const dispatch = useDispatch()
 useEffect(()=>{
   dispatch(getUser());
   dispatch(getAllMessages());
-  dispatch(getAllTimeline());
+  dispatch(getAllMyWorks());
   dispatch(getAllSkills());
-  dispatch(getAllSoftwareApplications);
-  dispatch(getAllProjects)
-}, []);
+  dispatch(getAllSoftwareApplications());
+  dispatch(getAllProjects());
+}, [dispatch]);
 
 
   return (
@@ -42,7 +42,7 @@ useEffect(()=>{
         <Route path="/password/forgot" element={<ForgotPassword/>}/>
         <Route path="/password/reset/:token" element={<ResetPassword/>}/>
         <Route path="/manage/skills" element={<ManageSkills/>}/>
-        <Route path="/manage/timeline" element={<ManageTimeLine/>}/>
+        <Route path="/manage/my-works" element={<ManageMyWorks/>}/>
         <Route path="/manage/projects" element={<ManageProjects/>}/>
         <Route path="/view/project/:id" element={<ViewProjects/>}/>
         <Route path="/update/project/:id" element={<UpdateProjects/>}/>

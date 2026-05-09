@@ -1,6 +1,6 @@
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'; 
 import { clearAllUserErrors, logout } from '@/store/slices/userSlice';
-import { FolderGit, Home, LayoutGrid, LogOut, Package, History, MessageSquareMore, User, PanelLeft, PencilRuler } from 'lucide-react';
+import { FolderGit, Home, LayoutGrid, LogOut, Package, History, MessageSquareMore, User, PanelLeft, PencilRuler, Briefcase } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ import Dashboard from './sub-components/Dashboard';
 import AddProject from './sub-components/AddProject';
 import AddSkill from './sub-components/AddSkill';
 import AddApplication from './sub-components/AddApplication';
-import AddTimeline from './sub-components/AddTimeline';
+import AddMyWork from './sub-components/AddMyWork';
 import Messages from './sub-components/Messages';
 import Account from './sub-components/Account';
 
@@ -136,17 +136,17 @@ const HomePage = () => {
                 <TooltipTrigger asChild>
                   <Link
                     className={`flex h-9 w-9 items-center justify-center rounded-lg ${
-                      active === "Add Timeline"
+                      active === "Add My Works"
                         ? "text-accent-foreground bg-accent"
                         : "text-muted-foreground"
                     } transition-colors hover:text-foreground md:h-8 md:w-8`}
-                    onClick={() => setActive("Add Timeline")}
+                    onClick={() => setActive("Add My Works")}
                   >
-                    <History className="w-5 h-5" />
-                    <span className="sr-only">Add Timeline</span>
+                    <Briefcase className="w-5 h-5" />
+                    <span className="sr-only">Add My Works</span>
                   </Link>
                 </TooltipTrigger>
-                <TooltipContent side="right">Add Timeline</TooltipContent>
+                <TooltipContent side="right">Add My Works</TooltipContent>
               </Tooltip>
             </TooltipProvider>
 
@@ -269,13 +269,13 @@ const HomePage = () => {
                 <User className="h-5 w-5"/>
                    Account
               </Link>
-              <Link href="#" className={`flex items-center gap-4 px-2.5 ${active === "Add Timeline" ? "text-foreground" :
+              <Link href="#" className={`flex items-center gap-4 px-2.5 ${active === "Add My Works" ? "text-foreground" :
                 "text-muted-foreground hover:text-foreground"
               }`}
-              onClick={()=>setActive("Add Timeline")}
+              onClick={()=>setActive("Add My Works")}
               >
-                <History className="h-5 w-5"/>
-                Add Timeline
+                <Briefcase className="h-5 w-5"/>
+                Add My Works
               </Link>
               <Link href="#" className={`flex items-center gap-4 px-2.5 ${active === "Messages" ? "text-foreground" :
                 "text-muted-foreground hover:text-foreground"
@@ -317,8 +317,8 @@ const HomePage = () => {
       return <AddSkill />;
     case "Add Application":
       return <AddApplication />;
-    case "Add Timeline":
-      return <AddTimeline />;
+    case "Add My Works":
+      return <AddMyWork />;
     case "Message":
       return <Messages />;
     case "Account":

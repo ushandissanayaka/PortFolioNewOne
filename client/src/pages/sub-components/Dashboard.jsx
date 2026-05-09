@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { getAllProjects } from '@/store/slices/projectSlice';
 import { getAllSkills } from '@/store/slices/skillsSlice';
 import { clearAllApplicationSliceErrors, deleteSoftwareApplication, getAllSoftwareApplications, resetApplicationSlice } from '@/store/slices/softwareApplicationSlice';
-import { getAllTimeline } from '@/store/slices/timelineSlice';
+import { getAllMyWorks } from '@/store/slices/myWorksSlice';
 import { Tabs, TabsContent } from '@radix-ui/react-tabs';
 import { toast } from 'react-toastify';
 import SpecialLoadingButton from './SpecialLoadingButton';
@@ -15,20 +15,20 @@ import SpecialLoadingButton from './SpecialLoadingButton';
 const Dashboard = () => {
   const dispatch = useDispatch();
 
-  // Fetch projects, skills, software applications, and timeline when the component mounts
+  // Fetch projects, skills, software applications, and myWorks when the component mounts
   useEffect(() => {
     dispatch(getAllProjects());
     dispatch(getAllSkills());
     dispatch(getAllSoftwareApplications());
-    dispatch(getAllTimeline());
+    dispatch(getAllMyWorks());
   }, [dispatch]);
 
-  // Access the user, projects, skills, software applications, and timeline state from Redux
+  // Access the user, projects, skills, software applications, and myWorks state from Redux
   const { user } = useSelector((state) => state.user);
   const { projects } = useSelector((state) => state.project);
   const { skills } = useSelector((state) => state.skill);
   const { softwareApplications, error, loading, message } = useSelector((state) => state.softwareApplication);
-  const { timeline } = useSelector((state) => state.timeline);
+  const { myWorks } = useSelector((state) => state.myWorks);
 
   const [appId, setAppId] = useState("");
 
@@ -115,7 +115,7 @@ const Dashboard = () => {
                           <TableHead className="hidden md:table-cell">Stack</TableHead>
                           <TableHead className="hidden md:table-cell">Deployed</TableHead>
                           <TableHead className="hidden md:table-cell">Update</TableHead>
-                          <TableHead className="hidden md:table-cell">Banner</TableHead> {/* Banner column */}
+                          <TableHead className="hidden md:table-cell">Banner</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -243,9 +243,9 @@ const Dashboard = () => {
                 {/* Timeline Table */}
                 <Card>
                   <CardHeader className="px-7 flex items-center justify-between flex-row">
-                    <CardTitle>Timeline</CardTitle>
-                    <Link to={"/manage/timeline"}>
-                      <Button>Manage Timeline</Button>
+                    <CardTitle>My Works</CardTitle>
+                    <Link to={"/manage/my-works"}>
+                      <Button>Manage My Works</Button>
                     </Link>
                   </CardHeader>
                   <CardContent>
@@ -258,8 +258,8 @@ const Dashboard = () => {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {timeline && timeline.length > 0 ? (
-                          timeline.map((element) => (
+                        {myWorks && myWorks.length > 0 ? (
+                          myWorks.map((element) => (
                             <TableRow key={element._id}>
                               <TableCell>{element.title}</TableCell>
                               <TableCell>{element.timeLine.from}</TableCell>
@@ -269,7 +269,7 @@ const Dashboard = () => {
                         ) : (
                           <TableRow>
                             <TableCell colSpan={3} className="text-center">
-                              You have not added any timeline.
+                              You have not added any works.
                             </TableCell>
                           </TableRow>
                         )}

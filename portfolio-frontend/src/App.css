@@ -31,6 +31,7 @@
 }
 
 @keyframes animate {
+
   0%,
   18%,
   20%,
@@ -43,6 +44,7 @@
     color: gray;
     text-shadow: none;
   }
+
   18.1%,
   20.1%,
   30%,
@@ -55,9 +57,9 @@
   100% {
     color: #fff;
     text-shadow: 0 0 1px rgb(150, 150, 150),
-                 0 0 2px rgb(150, 150, 150),
-                 0 0 5px rgb(150, 150, 150),
-                 0 0 20px rgb(150, 150, 150);
+      0 0 2px rgb(150, 150, 150),
+      0 0 5px rgb(150, 150, 150),
+      0 0 20px rgb(150, 150, 150);
   }
 }
 
@@ -89,6 +91,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Ensure it takes the full viewport height */
+  min-height: 100vh;
+  /* Ensure it takes the full viewport height */
   width: 100%;
 }

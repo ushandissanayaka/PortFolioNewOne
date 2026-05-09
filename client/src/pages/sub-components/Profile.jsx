@@ -87,11 +87,7 @@ const Profile = () => {
 
           </div>
 
-          <div className="grid gap-2">
-            <Label>Instagram URL</Label>
-            <Input defaultValue={user.instagramURL} disabled />
 
-          </div>
 
           <div className="grid gap-2">
             <Label>Facebook URL</Label>
