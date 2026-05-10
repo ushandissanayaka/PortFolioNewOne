@@ -60,7 +60,7 @@ const Hero = () => {
   );
 
   return (
-    <div className='w-full flex flex-col md:flex-row justify-between items-center p-4 min-h-screen relative overflow-hidden bg-black'>
+    <div className='w-full flex flex-col md:flex-row justify-between items-center p-4 min-h-screen relative overflow-hidden bg-black' style={{ fontFamily: "'Inter', sans-serif" }}>
 
       {/* Plasma animated background */}
       <div className="absolute inset-0 z-0">
@@ -90,7 +90,7 @@ const Hero = () => {
 
         {/* Full Name */}
         <div>
-          <h1 className='text-tubeLight-effect font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[2px] mb-4 text-white'>
+          <h1 className='text-tubeLight-effect text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[2px] mb-4 text-white' style={{ fontFamily: "'Inter', sans-serif", fontWeight: 800 }}>
             Hey, I'm {user.fullName || "Guest"}
           </h1>
         </div>
@@ -102,22 +102,25 @@ const Hero = () => {
 
         {/* Static Text with Typing Animation */}
         <div className='w-full max-w-[600px] overflow-hidden'>
-          <h1
+          <h2
             className='typing-animation'
             style={{
-              overflow: 'hidden', // Ensures the text is hidden until the typing effect completes
-              whiteSpace: 'nowrap', // Keeps the text on a single line for larger screens
-              borderRight: '0.15em solid orange', // Adds a caret effect
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              borderRight: '0.15em solid orange',
               animation: 'typing 10s steps(100, end) infinite, blink-caret 0.75s step-end infinite',
-              fontSize: '1.2rem',
+              fontSize: '1.1rem',
               lineHeight: '1.5',
-              fontWeight: 'bold',
-              color: '#fff', // Adjust text color as needed
-              width: '0', // Start with 0 width for typing effect
+              fontWeight: 600,
+              fontFamily: "'Inter', sans-serif",
+              letterSpacing: '1px',
+              color: '#fff',
+              width: '0',
+              margin: 0,
             }}
           >
-            FREELANCER,WEB DEVELOPER, MOBILE APP DEVELOPER, WEB DESIGNER, CONTENT CREATOR, EDITOR
-          </h1>
+            FREELANCER · WEB DEVELOPER · MOBILE APP DEVELOPER
+          </h2>
         </div>
 
         {/* Social Media Icons */}
@@ -174,7 +177,7 @@ const Hero = () => {
         </div>
 
         {/* About Me Section */}
-        <p className='mt-8 text-lg sm:text-xl tracking-[2px] text-white text-center lg:text-left'>{user.aboutMe}</p>
+        <p className='mt-8 text-base sm:text-lg tracking-[1px] text-white text-center lg:text-left leading-relaxed' style={{ fontFamily: "'Inter', sans-serif" }}>{user.aboutMe}</p>
         <hr className='my-8 md:my-10 w-full max-w-2xl border-gray-700' />
       </div>
 
@@ -220,10 +223,15 @@ const Hero = () => {
           /* Typing Animation for Mobile Devices */
           @media (max-width: 768px) {
             .typing-animation {
-              white-space: normal; /* Allow text to wrap */
-              font-size: 1rem; /* Smaller font size for mobile */
-              line-height: 1.4; /* Adjust line height for better readability */
-              animation: none; /* Disable typing animation for mobile */
+              font-family: 'Inter', sans-serif !important;
+              white-space: normal;
+              width: auto !important;
+              border-right: none !important;
+              font-size: 0.88rem;
+              line-height: 1.6;
+              font-weight: 600;
+              letter-spacing: 0.5px;
+              animation: none;
             }
           }
         `}
