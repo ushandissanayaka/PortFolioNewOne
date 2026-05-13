@@ -40,12 +40,12 @@ const MyWorks = () => {
           My Works
         </h1>
 
-        <ol className="relative border-s border-gray-200 dark:border-gray-700">
+        <ol className="relative border-none sm:border-s border-gray-200 dark:border-gray-700">
           {myWorks && myWorks.length > 0 ? (
             myWorks.map((element, index) => (
-              <li className="mb-16 ms-4 sm:ms-6" key={index}>
+              <li className="mb-16 ms-0 sm:ms-6 text-center sm:text-left" key={index}>
                 {/* Timeline dot */}
-                <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-white dark:ring-black dark:bg-blue-900">
+                <span className="hidden sm:flex absolute items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-4 sm:ring-8 ring-white dark:ring-black dark:bg-blue-900">
                   <svg
                     className="w-2.5 h-2.5 text-blue-800 dark:text-blue-300"
                     aria-hidden="true"
@@ -76,7 +76,7 @@ const MyWorks = () => {
                   enableBlur={true}
                   baseRotation={3}
                   blurStrength={4}
-                  textClassName="text-gray-500 dark:text-gray-400 !text-[clamp(0.9rem,2vw,1.1rem)] !font-normal"
+                  textClassName="text-gray-500 dark:text-gray-400 !text-[clamp(0.9rem,2vw,1.1rem)] !font-normal text-center sm:text-left"
                 >
                   {element.description}
                 </ScrollReveal>

@@ -196,6 +196,7 @@ button:focus-visible {
     @apply bg-background text-foreground;
   }
 }
+
 .particles-container {
   position: fixed;
   top: 0;

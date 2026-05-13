@@ -40,7 +40,7 @@ const About = () => {
     <div className='w-full flex flex-col overflow-x-hidden min-h-screen px-4 sm:px-6 lg:px-8 py-8 sm:py-12 bg-gradient-to-b from-gray-100 to-gray-200 dark:from-black dark:to-black'>
       {/* Heading Section */}
       <div className='relative'>
-        <h1 className='flex gap-4 items-center text-[2rem] sm:text-[2.75rem] md:text-[3rem] lg:text-[3.8rem] leading-[56px] md:leading-[67px] lg:leading-[90px] tracking-[15px] mx-auto w-fit font-extrabold'>
+        <h1 className='flex gap-4 items-center text-[2rem] sm:text-[2.75rem] md:text-[3rem] lg:text-[3.8rem] leading-[56px] md:leading-[67px] lg:leading-[90px] tracking-[4px] sm:tracking-[15px] mx-auto w-fit font-extrabold'>
           ABOUT
           <span className='text-tubeLight-effect font-extrabold'>ME</span>
         </h1>

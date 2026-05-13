@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { FaYoutube, FaMedium, FaFacebook, FaLinkedin, FaGithub } from 'react-icons/fa'; // Importing icons from react-icons
+import { FaYoutube, FaMedium, FaFacebook, FaLinkedin, FaGithub } from 'react-icons/fa';
 import { ExternalLink } from 'lucide-react';
 import Plasma from '../../components/ui/Plasma';
 
@@ -13,13 +13,12 @@ const Hero = () => {
   useEffect(() => {
     const getMyProfile = async () => {
       try {
-        // Fetch user data from the backend
         const { data } = await axios.get("http://localhost:4000/api/v1/user/me/portfoilo", {
           withCredentials: true
         });
 
         if (data.success && data.user) {
-          setUser(data.user); // Set the user data in state
+          setUser(data.user);
         } else {
           setError("User data not found in the response.");
         }
@@ -31,7 +30,7 @@ const Hero = () => {
       }
     };
 
-    getMyProfile(); // Call the function to fetch user data
+    getMyProfile();
   }, []);
 
   if (loading) {
@@ -60,7 +59,10 @@ const Hero = () => {
   );
 
   return (
-    <div className='w-full flex flex-col md:flex-row justify-between items-center p-4 min-h-screen relative overflow-hidden bg-black' style={{ fontFamily: "'Inter', sans-serif" }}>
+    <div
+      className='w-full flex flex-col md:flex-row justify-between items-center p-4 min-h-screen relative overflow-hidden bg-black'
+      style={{ fontFamily: "'Inter', sans-serif" }}
+    >
 
       {/* Plasma animated background */}
       <div className="absolute inset-0 z-0">
@@ -80,8 +82,9 @@ const Hero = () => {
         style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 60%, transparent 100%)' }}
       />
 
-      {/* Left Side Content */}
-      <div className='w-full md:w-1/2 lg:w-2/3 flex flex-col justify-center items-center lg:items-start text-center lg:text-left relative z-10 p-4'>
+      {/* ✅ FIX: Left Side Content — items-center on mobile, items-start on md+ */}
+      <div className='w-full md:w-1/2 lg:w-2/3 flex flex-col justify-center items-center md:items-start text-center md:text-left relative z-10 p-4'>
+
         {/* Online Indicator */}
         <div className='flex items-center gap-2 mb-2'>
           <span className='bg-green-400 rounded-full h-2 w-2'></span>
@@ -90,7 +93,10 @@ const Hero = () => {
 
         {/* Full Name */}
         <div>
-          <h1 className='text-tubeLight-effect text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[2px] mb-4 text-white' style={{ fontFamily: "'Inter', sans-serif", fontWeight: 800 }}>
+          <h1
+            className='text-tubeLight-effect text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[2px] mb-4 text-white'
+            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 800 }}
+          >
             Hey, I'm {user.fullName || "Guest"}
           </h1>
         </div>
@@ -100,15 +106,15 @@ const Hero = () => {
           {profileImage}
         </div>
 
-        {/* Static Text with Typing Animation */}
-        <div className='w-full max-w-[600px] overflow-hidden'>
+        {/* ✅ FIX: Typing animation wrapper — centered on mobile, left on md+ */}
+        <div className='w-full max-w-[600px] overflow-hidden flex justify-center md:justify-start'>
           <h2
             className='typing-animation'
             style={{
               overflow: 'hidden',
               whiteSpace: 'nowrap',
               borderRight: '0.15em solid orange',
-              animation: 'typing 10s steps(100, end) infinite, blink-caret 0.75s step-end infinite',
+              animation: 'typing 10s steps(45, end) infinite, blink-caret 0.75s step-end infinite',
               fontSize: '1.1rem',
               lineHeight: '1.5',
               fontWeight: 600,
@@ -125,51 +131,40 @@ const Hero = () => {
 
         {/* Social Media Icons */}
         <div className='w-fit px-5 py-2 bg-slate-50 rounded-[20px] flex gap-3 sm:gap-5 items-center mt-4 md:mt-8 lg:mt-10'>
-          {/* LinkedIn Icon */}
           <Link to={user.linkedInURL || "https://www.linkedin.com/in/ushan-dissanayaka-01upd/"} target='_blank'>
             <FaLinkedin className='text-sky-500 w-6 h-6 sm:w-7 sm:h-7 transition-all duration-300 hover:scale-125 active:scale-110' />
           </Link>
 
-          {/* GitHub Icon */}
           <Link to={user.githubURL || "https://github.com/ushandissanayaka"} target='_blank'>
             <FaGithub className='text-black w-6 h-6 sm:w-7 sm:h-7 transition-all duration-300 hover:scale-125 active:scale-110' />
           </Link>
 
-          {/* YouTube Icon */}
           <Link to={user.youtubeURL || ""} target='_blank'>
             <FaYoutube className='text-red-500 w-6 h-6 sm:w-7 sm:h-7 transition-all duration-300 hover:scale-125 active:scale-110' />
           </Link>
 
-          {/* Medium Icon */}
           <Link to={user.mediumURL || "https://medium.com/@ushandissanayaka879"} target='_blank'>
             <FaMedium className="text-black w-6 h-6 sm:w-7 sm:h-7 transition-all duration-300 hover:scale-125 active:scale-110" />
           </Link>
 
-          {/* Facebook Icon */}
           <Link to={user.facebookURL || "https://web.facebook.com/profile.php?id=100073905847454"} target='_blank'>
             <FaFacebook className='text-blue-800 w-6 h-6 sm:w-7 sm:h-7 transition-all duration-300 hover:scale-125 active:scale-110' />
           </Link>
         </div>
 
-        {/* Buttons for GitHub and Resume */}
-        <div className='mt-4 md:mt-8 lg:mt-10 flex gap-3 flex-wrap justify-center'>
-          {/* GitHub Button */}
+        {/* ✅ FIX: Buttons — centered on mobile, left-aligned on md+ */}
+        <div className='mt-4 md:mt-8 lg:mt-10 flex gap-3 flex-wrap justify-center md:justify-start'>
           <Link to={user.githubURL || "https://github.com/ushandissanayaka"} target='_blank'>
             <button className='rounded-[30px] flex items-center gap-2 flex-row px-4 py-2 bg-blue-500 text-black hover:bg-blue-600 transition-colors'>
-              <span>
-                <FaGithub />
-              </span>
+              <span><FaGithub /></span>
               <span>Github</span>
             </button>
           </Link>
 
-          {/* Resume Button */}
           {user.resume && user.resume.url && (
             <Link to={user.resume.url} target='_blank'>
               <button className='rounded-[30px] flex items-center gap-2 flex-row px-4 py-2 bg-green-500 text-black hover:bg-green-600 transition-colors'>
-                <span>
-                  <ExternalLink />
-                </span>
+                <span><ExternalLink /></span>
                 <span>Resume</span>
               </button>
             </Link>
@@ -177,7 +172,13 @@ const Hero = () => {
         </div>
 
         {/* About Me Section */}
-        <p className='mt-8 text-base sm:text-lg tracking-[1px] text-white text-center lg:text-left leading-relaxed' style={{ fontFamily: "'Inter', sans-serif" }}>{user.aboutMe}</p>
+        <p
+          className='mt-8 text-base sm:text-lg tracking-[1px] text-white text-center md:text-left leading-relaxed'
+          style={{ fontFamily: "'Inter', sans-serif" }}
+        >
+          {user.aboutMe}
+        </p>
+
         <hr className='my-8 md:my-10 w-full max-w-2xl border-gray-700' />
       </div>
 
@@ -190,24 +191,14 @@ const Hero = () => {
       <style>
         {`
           @keyframes typing {
-            0% {
-              width: 0;
-            }
-            50% {
-              width: 100%;
-            }
-            100% {
-              width: 0;
-            }
+            0% { width: 0; }
+            50% { width: 100%; }
+            100% { width: 0; }
           }
 
           @keyframes blink-caret {
-            from, to {
-              border-color: transparent;
-            }
-            50% {
-              border-color: orange;
-            }
+            from, to { border-color: transparent; }
+            50% { border-color: orange; }
           }
 
           @keyframes hero-bounce {
@@ -220,7 +211,7 @@ const Hero = () => {
             animation: hero-bounce 3s infinite ease-in-out;
           }
 
-          /* Typing Animation for Mobile Devices */
+          /* Typing Animation override for Mobile */
           @media (max-width: 768px) {
             .typing-animation {
               font-family: 'Inter', sans-serif !important;
