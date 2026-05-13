@@ -55,7 +55,7 @@ const Apps = () => {
     <div className="min-h-screen flex flex-col items-center p-4 bg-gray-100 dark:bg-gray-900">
       {/* Centered Header */}
       <div className="flex-1 flex justify-center items-center w-full">
-        <h1 className='text-[2rem] sm:text-[2.75rem] md:text-[3rem] lg:text-[3.8rem] tracking-[15px] dancing_text'>
+        <h1 className='text-[2rem] sm:text-[2.75rem] md:text-[3rem] lg:text-[3.8rem] tracking-[4px] sm:tracking-[15px] dancing_text'>
           My Applications
         </h1>
       </div>

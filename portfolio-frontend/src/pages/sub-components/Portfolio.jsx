@@ -56,7 +56,7 @@ const Portfolio = () => {
 
       {/* Heading Section */}
       <div className='relative'>
-        <h1 className='flex gap-4 items-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[56px] md:leading-[67px] lg:leading-[90px] tracking-[10px] sm:tracking-[15px] mx-auto w-fit font-extrabold'>
+        <h1 className='flex gap-4 items-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[56px] md:leading-[67px] lg:leading-[90px] tracking-[4px] sm:tracking-[15px] mx-auto w-fit font-extrabold'>
           MY
           <span className='text-tubeLight-effect font-extrabold'>PROJECTS</span>
         </h1>

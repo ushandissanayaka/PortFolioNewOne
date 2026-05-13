@@ -20,11 +20,12 @@
 
 /* Text Tube Light Effect */
 .text-tubeLight-effect {
-  display: flex;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: inherit;
   color: #fff;
   position: relative;
   text-transform: uppercase;
-  width: 100%;
   outline: none;
   overflow-y: hidden;
   animation: animate 5s linear infinite;
