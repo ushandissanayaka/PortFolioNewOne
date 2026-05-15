@@ -22,7 +22,7 @@
 .text-tubeLight-effect {
   display: inline-flex;
   flex-wrap: wrap;
-  justify-content: inherit;
+  justify-content: center;
   color: #fff;
   position: relative;
   text-transform: uppercase;

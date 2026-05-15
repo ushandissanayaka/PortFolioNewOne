@@ -40,22 +40,22 @@ const About = () => {
     <div className='w-full flex flex-col overflow-x-hidden min-h-screen px-4 sm:px-6 lg:px-8 py-8 sm:py-12 bg-gradient-to-b from-gray-100 to-gray-200 dark:from-black dark:to-black'>
       {/* Heading Section */}
       <div className='relative'>
-        <h1 className='flex gap-4 items-center text-[2rem] sm:text-[2.75rem] md:text-[3rem] lg:text-[3.8rem] leading-[56px] md:leading-[67px] lg:leading-[90px] tracking-[4px] sm:tracking-[15px] mx-auto w-fit font-extrabold'>
+        <h1 className='flex gap-2 sm:gap-4 items-center text-[1.75rem] sm:text-[2.75rem] md:text-[3rem] lg:text-[3.8rem] leading-tight md:leading-[67px] lg:leading-[90px] tracking-[2px] sm:tracking-[8px] md:tracking-[15px] mx-auto w-fit font-extrabold px-4'>
           ABOUT
           <span className='text-tubeLight-effect font-extrabold'>ME</span>
         </h1>
 
         {/* Decorative Line */}
-        <div className='absolute w-[90%] sm:w-[70%] md:w-[50%] h-1 left-1/2 transform -translate-x-1/2 top-15 sm:top-12 md:top-14 lg:top-16 bg-slate-200 dark:bg-gray-500'>
-          <div className='absolute -left-6 top-1/2 transform -translate-y-1/2 flex gap-1'>
-            <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
-            <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
-            <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
+        <div className='absolute w-[80%] sm:w-[70%] md:w-[50%] h-1 left-1/2 transform -translate-x-1/2 top-15 sm:top-12 md:top-14 lg:top-16 bg-slate-200 dark:bg-gray-500'>
+          <div className='absolute -left-4 sm:-left-6 top-1/2 transform -translate-y-1/2 flex gap-1'>
+            <span className='w-1.5 h-1.5 sm:w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
+            <span className='w-1.5 h-1.5 sm:w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
+            <span className='w-1.5 h-1.5 sm:w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
           </div>
-          <div className='absolute -right-6 top-1/2 transform -translate-y-1/2 flex gap-1'>
-            <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
-            <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
-            <span className='w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
+          <div className='absolute -right-4 sm:-right-6 top-1/2 transform -translate-y-1/2 flex gap-1'>
+            <span className='w-1.5 h-1.5 sm:w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
+            <span className='w-1.5 h-1.5 sm:w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
+            <span className='w-1.5 h-1.5 sm:w-2 h-2 bg-slate-200 dark:bg-gray-500 rounded-full'></span>
           </div>
           <div
             className='absolute w-8 h-1 bg-blue-700 top-0'
@@ -83,7 +83,7 @@ const About = () => {
         </motion.div>
 
         {/* Text Section — Paragraphs slide from RIGHT with staggered delay */}
-        <div className='flex justify-center flex-col tracking-[1px] text-base sm:text-xl gap-4 sm:gap-5'>
+        <div className='flex justify-center flex-col tracking-[0.5px] sm:tracking-[1px] text-base sm:text-xl gap-4 sm:gap-5 text-center md:text-left'>
           <motion.p
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0 }}
