@@ -94,7 +94,7 @@ const Hero = () => {
         {/* Full Name */}
         <div>
           <h1
-            className='text-tubeLight-effect text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[2px] mb-4 text-white'
+            className='text-tubeLight-effect text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[1px] sm:tracking-[2px] mb-4 text-white'
             style={{ fontFamily: "'Inter', sans-serif", fontWeight: 800 }}
           >
             Hey, I'm {user.fullName || "Guest"}
@@ -107,7 +107,7 @@ const Hero = () => {
         </div>
 
         {/* ✅ FIX: Typing animation wrapper — centered on mobile, left on md+ */}
-        <div className='w-full max-w-[600px] overflow-hidden flex justify-center md:justify-start'>
+        <div className='w-full flex justify-center md:justify-start px-2'>
           <h2
             className='typing-animation'
             style={{
@@ -115,7 +115,7 @@ const Hero = () => {
               whiteSpace: 'nowrap',
               borderRight: '0.15em solid orange',
               animation: 'typing 10s steps(45, end) infinite, blink-caret 0.75s step-end infinite',
-              fontSize: '1.1rem',
+              fontSize: 'clamp(0.9rem, 3vw, 1.1rem)',
               lineHeight: '1.5',
               fontWeight: 600,
               fontFamily: "'Inter', sans-serif",
@@ -153,18 +153,18 @@ const Hero = () => {
         </div>
 
         {/* ✅ FIX: Buttons — centered on mobile, left-aligned on md+ */}
-        <div className='mt-4 md:mt-8 lg:mt-10 flex gap-3 flex-wrap justify-center md:justify-start'>
+        <div className='mt-4 md:mt-8 lg:mt-10 flex gap-4 flex-wrap justify-center md:justify-start'>
           <Link to={user.githubURL || "https://github.com/ushandissanayaka"} target='_blank'>
-            <button className='rounded-[30px] flex items-center gap-2 flex-row px-4 py-2 bg-blue-500 text-black hover:bg-blue-600 transition-colors'>
-              <span><FaGithub /></span>
+            <button className='rounded-[30px] flex items-center justify-center gap-2 px-8 py-3 bg-black/80 text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300 font-bold shadow-lg min-w-[150px]'>
+              <FaGithub className="w-5 h-5" />
               <span>Github</span>
             </button>
           </Link>
 
           {user.resume && user.resume.url && (
             <Link to={user.resume.url} target='_blank'>
-              <button className='rounded-[30px] flex items-center gap-2 flex-row px-4 py-2 bg-green-500 text-black hover:bg-green-600 transition-colors'>
-                <span><ExternalLink /></span>
+              <button className='rounded-[30px] flex items-center justify-center gap-2 px-8 py-3 bg-black/80 text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300 font-bold shadow-lg min-w-[150px]'>
+                <ExternalLink className="w-5 h-5" />
                 <span>Resume</span>
               </button>
             </Link>

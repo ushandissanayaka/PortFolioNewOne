@@ -81,7 +81,7 @@ const Contact = () => {
       <div className="relative z-10 w-full flex flex-col items-center">
         {/* Heading Section */}
         <div className='relative w-full text-center'>
-          <h1 className='flex gap-4 items-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[56px] md:leading-[67px] lg:leading-[90px] tracking-[10px] sm:tracking-[15px] mx-auto w-fit font-extrabold'>
+          <h1 className='flex gap-4 items-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[56px] md:leading-[67px] lg:leading-[90px] tracking-[10px] sm:tracking-[15px] mx-auto w-fit font-extrabold text-white'>
             CONTACT
             <span className='text-tubeLight-effect font-extrabold'>ME</span>
           </h1>
@@ -116,50 +116,50 @@ const Contact = () => {
         <form onSubmit={handleSendMessage} className='w-full max-w-md mt-8 flex flex-col gap-6 px-4 sm:px-0'>
           {/* Name Field */}
           <div className='flex flex-col gap-2'>
-            <Label className="text-lg sm:text-xl">Your Name</Label>
+            <Label className="text-lg sm:text-xl text-white">Your Name</Label>
             <Input
               value={senderName}
               onChange={(e) => setSenderName(e.target.value)}
               placeholder="Your Name"
-              className='w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white'
+              className='w-full p-2 border rounded-lg bg-gray-800/50 border-gray-700 text-white placeholder:text-gray-400'
             />
             {errors.senderName && (
-              <p className="text-sm text-red-500 dark:text-red-400">{errors.senderName}</p>
+              <p className="text-sm text-red-400">{errors.senderName}</p>
             )}
           </div>
 
           {/* Subject Field */}
           <div className='flex flex-col gap-2'>
-            <Label className="text-lg sm:text-xl">Subject</Label>
+            <Label className="text-lg sm:text-xl text-white">Subject</Label>
             <Input
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               placeholder="Subject"
-              className='w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white'
+              className='w-full p-2 border rounded-lg bg-gray-800/50 border-gray-700 text-white placeholder:text-gray-400'
             />
             {errors.subject && (
-              <p className="text-sm text-red-500 dark:text-red-400">{errors.subject}</p>
+              <p className="text-sm text-red-400">{errors.subject}</p>
             )}
           </div>
 
           {/* Message Field */}
           <div className='flex flex-col gap-2'>
-            <Label className="text-lg sm:text-xl">Message</Label>
+            <Label className="text-lg sm:text-xl text-white">Message</Label>
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Please include your email or phone number in the message so we can contact you...."
-              className='w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white'
+              className='w-full p-2 border rounded-lg bg-gray-800/50 border-gray-700 text-white placeholder:text-gray-400'
               rows={5}
             />
             {errors.message && (
-              <p className="text-sm text-red-500 dark:text-red-400">{errors.message}</p>
+              <p className="text-sm text-red-400">{errors.message}</p>
             )}
           </div>
 
           {/* Submit Button */}
           <div className='flex justify-end'>
-            <Button type="submit" className="w-full text-gray-600  sm:w-52" disabled={loading}>
+            <Button type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700 sm:w-52" disabled={loading}>
               {loading ? "Sending..." : "SEND MESSAGE"}
             </Button>
           </div>

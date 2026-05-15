@@ -81,42 +81,44 @@ const Portfolio = () => {
       </div>
 
       {/* Projects Grid */}
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-4 sm:mt-10'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-4 sm:mt-10 gap-6'>
         {displayedProjects.map((project) => (
-          <CardContainer key={project._id} containerClassName="py-6 px-2">
-            <CardBody className="bg-gray-50 dark:bg-gray-900 relative group/card border border-gray-200 dark:border-white/[0.2] hover:border-blue-400 dark:hover:border-blue-400 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] dark:hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] w-full h-auto rounded-xl p-5 transition-all duration-300">
+          <CardContainer key={project._id} containerClassName="py-6 px-2 h-full">
+            <CardBody className="bg-gray-50 dark:bg-gray-900 relative group/card border border-gray-200 dark:border-white/[0.2] hover:border-blue-400 dark:hover:border-blue-400 hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] dark:hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] w-full h-full flex flex-col rounded-xl p-5 transition-all duration-300">
+              
+              <div className="flex-grow">
+                {/* Project Title */}
+                <CardItem
+                  translateZ="50"
+                  className="text-base sm:text-xl font-bold text-gray-800 dark:text-white"
+                >
+                  {project.title || "Untitled Project"}
+                </CardItem>
 
-              {/* Project Title */}
-              <CardItem
-                translateZ="50"
-                className="text-base sm:text-xl font-bold text-gray-800 dark:text-white"
-              >
-                {project.title || "Untitled Project"}
-              </CardItem>
+                {/* Project Description */}
+                <CardItem
+                  as="p"
+                  translateZ="60"
+                  className="text-gray-500 dark:text-neutral-300 text-xs sm:text-sm mt-2 line-clamp-2 h-10 overflow-hidden"
+                >
+                  {project.description || "Click to view project details."}
+                </CardItem>
 
-              {/* Project Description */}
-              <CardItem
-                as="p"
-                translateZ="60"
-                className="text-gray-500 dark:text-neutral-300 text-xs sm:text-sm mt-2 line-clamp-2"
-              >
-                {project.description || "Click to view project details."}
-              </CardItem>
-
-              {/* Project Banner Image */}
-              <CardItem
-                translateZ="100"
-                className="w-full mt-4"
-              >
-                <img
-                  src={project.projectBanner?.url || "/placeholder.png"}
-                  alt={project.title || "Project Banner"}
-                  className="h-48 sm:h-56 w-full object-cover rounded-xl group-hover/card:shadow-xl group-hover/card:brightness-110 transition-all duration-300"
-                />
-              </CardItem>
+                {/* Project Banner Image */}
+                <CardItem
+                  translateZ="100"
+                  className="w-full mt-4"
+                >
+                  <img
+                    src={project.projectBanner?.url || "/placeholder.png"}
+                    alt={project.title || "Project Banner"}
+                    className="h-48 w-full object-cover rounded-xl group-hover/card:shadow-xl group-hover/card:brightness-110 transition-all duration-300"
+                  />
+                </CardItem>
+              </div>
 
               {/* Footer — Stack Tags + View Button */}
-              <div className="flex justify-between items-center mt-5">
+              <div className="flex justify-between items-center mt-5 pt-2 border-t border-gray-100 dark:border-gray-800">
                 <CardItem
                   translateZ={20}
                   className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-widest"
