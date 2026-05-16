@@ -27,6 +27,7 @@ export default function BlobCursor({
 }) {
   const containerRef = useRef(null);
   const blobsRef = useRef([]);
+  const isHiddenRef = useRef(false);
 
   const updateOffset = useCallback(() => {
     if (!containerRef.current) return { left: 0, top: 0 };
@@ -41,6 +42,19 @@ export default function BlobCursor({
       const y = 'clientY' in e ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : undefined);
 
       if (x === undefined || y === undefined) return;
+
+      // Check if target or parent has 'data-no-blob-cursor'
+      const target = e.target;
+      const shouldHide = !!target?.closest('[data-no-blob-cursor]');
+
+      if (shouldHide !== isHiddenRef.current) {
+        isHiddenRef.current = shouldHide;
+        gsap.to(blobsRef.current, {
+          opacity: shouldHide ? 0 : (i) => opacities[i],
+          duration: 0.3,
+          overwrite: 'auto'
+        });
+      }
 
       blobsRef.current.forEach((el, i) => {
         if (!el) return;
@@ -63,7 +77,7 @@ export default function BlobCursor({
       window.removeEventListener('touchmove', handleGlobalMove);
       window.removeEventListener('resize', updateOffset);
     };
-  }, [updateOffset, fastDuration, slowDuration, fastEase, slowEase]);
+  }, [updateOffset, fastDuration, slowDuration, fastEase, slowEase, opacities]);
 
   return (
     <div

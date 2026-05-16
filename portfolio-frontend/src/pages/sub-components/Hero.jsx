@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FaYoutube, FaMedium, FaFacebook, FaLinkedin, FaGithub } from 'react-icons/fa';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Download } from 'lucide-react';
 import Plasma from '../../components/ui/Plasma';
 
 const Hero = () => {
@@ -62,6 +62,7 @@ const Hero = () => {
     <div
       className='w-full flex flex-col md:flex-row justify-between items-center p-4 min-h-screen relative overflow-hidden bg-black'
       style={{ fontFamily: "'Inter', sans-serif" }}
+      data-no-blob-cursor="true"
     >
 
       {/* Plasma animated background */}
@@ -161,14 +162,17 @@ const Hero = () => {
             </button>
           </Link>
 
-          {user.resume && user.resume.url && (
-            <Link to={user.resume.url} target='_blank'>
-              <button className='rounded-[30px] flex items-center justify-center gap-2 px-8 py-3 bg-black/80 text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300 font-bold shadow-lg min-w-[150px]'>
-                <ExternalLink className="w-5 h-5" />
-                <span>Resume</span>
-              </button>
-            </Link>
-          )}
+          <a 
+            href="/resume.pdf" 
+            target='_blank' 
+            rel="noreferrer"
+            download="Ushan_Dissanayaka_Resume.pdf"
+          >
+            <button className='rounded-[30px] flex items-center justify-center gap-2 px-8 py-3 bg-black/80 text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300 font-bold shadow-lg min-w-[150px]'>
+              <Download className="w-5 h-5" />
+              <span>Download CV</span>
+            </button>
+          </a>
         </div>
 
         {/* About Me Section */}
