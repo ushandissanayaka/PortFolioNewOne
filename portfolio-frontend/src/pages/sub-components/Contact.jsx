@@ -54,7 +54,7 @@ const Contact = () => {
   };
 
   return (
-    <div className='min-h-screen flex flex-col items-center p-4 relative overflow-hidden bg-black'>
+    <div className='min-h-screen flex flex-col items-center p-4 relative overflow-hidden bg-black' data-no-blob-cursor="true">
       {/* LiquidEther Animated Background */}
       <div className="absolute inset-0 z-0">
         <LiquidEther
