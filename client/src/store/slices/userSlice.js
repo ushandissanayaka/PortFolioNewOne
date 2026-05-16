@@ -131,7 +131,7 @@ const userSlice = createSlice({
 export const login = ( email, password ) => async( dispatch )=>{
     dispatch(userSlice.actions.loginRequest());
     try {
-        const {data} = await axios.post("http://localhost:4000/api/v1/user/login", {email,password}, {withCredentials: true,headers:{"Content-Type":"application/json"}}
+        const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/user/login`, {email,password}, {withCredentials: true,headers:{"Content-Type":"application/json"}}
 
         );
         dispatch(userSlice.actions.loginSuccess(data.user));
@@ -145,7 +145,7 @@ export const login = ( email, password ) => async( dispatch )=>{
 export const getUser = (  ) => async( dispatch )=>{
     dispatch(userSlice.actions.loadUserRequest());
     try {
-        const {data} = await axios.get("http://localhost:4000/api/v1/user/me", 
+        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/user/me`, 
             {withCredentials: true}
 
         );
@@ -162,7 +162,7 @@ export const getUser = (  ) => async( dispatch )=>{
 export const logout = (  ) => async( dispatch )=>{
     
     try {
-        const {data} = await axios.get("http://localhost:4000/api/v1/user/logout", 
+        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/user/logout`, 
             {withCredentials: true}
 
         );
@@ -178,7 +178,7 @@ export const updatePassword = (currentPassword, newPassword, confirmNewPassword)
     dispatch(userSlice.actions.updatePasswordRequest());
     try {
         const { data } = await axios.put(
-            "http://localhost:4000/api/v1/user/update/password",
+            `${import.meta.env.VITE_API_URL}/api/v1/user/update/password`,
             { currentPassword, newPassword, confirmNewPassword },
             {
                 withCredentials: true,
@@ -203,7 +203,7 @@ export const updateProfile = (newData) => async(dispatch ) =>{
     dispatch(userSlice.actions.updateProfileRequest());
     try {
         const {data} = await axios.put(
-            "http://localhost:4000/api/v1/user/update/me",
+            `${import.meta.env.VITE_API_URL}/api/v1/user/update/me`,
             newData,
             {
                 withCredentials: true,

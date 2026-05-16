@@ -10,7 +10,7 @@ const Timeline = () => {
     const getMyTimeline = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/timeline/getall",
+          `${import.meta.env.VITE_API_URL}/api/v1/timeline/getall`,
           { withCredentials: true }
         );
         setTimeline(data.timelines);

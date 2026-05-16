@@ -12,7 +12,7 @@ const Apps = () => {
     const getMyApps = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/softwareApplication/getall",
+          `${import.meta.env.VITE_API_URL}/api/v1/softwareApplication/getall`,
           { withCredentials: true }
         );
 

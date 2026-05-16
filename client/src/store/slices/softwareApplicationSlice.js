@@ -89,7 +89,7 @@ export const getAllSoftwareApplications = () => async (dispatch) => {
   dispatch(getAllSoftwareApplicationsRequest());
   try {
     const { data } = await axios.get(
-      "http://localhost:4000/api/v1/softwareApplication/getall",
+      `${import.meta.env.VITE_API_URL}/api/v1/softwareApplication/getall`,
       { withCredentials: true }
     );
     dispatch(getSoftwareApplicationsSuccess(data.softwareApplications));
@@ -108,7 +108,7 @@ export const addNewSoftwareApplication = (applicationData) => async (dispatch) =
   dispatch(addNewSoftwareRequest());
   try {
     const response = await axios.post(
-      "http://localhost:4000/api/v1/softwareApplication/add",
+      `${import.meta.env.VITE_API_URL}/api/v1/softwareApplication/add`,
       applicationData,
       {
         withCredentials: true,
@@ -161,3 +161,4 @@ export const resetApplicationSliceThunk = () => (dispatch) => {
 };
 
 export default softwareApplicationSlice.reducer;
+
