@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Use Vite's environment variables
-axios.defaults.baseURL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+axios.defaults.baseURL = import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL}`;
 
 const projectSlice = createSlice({
   name: "project",
@@ -214,3 +214,4 @@ export const resetProjectStateThunk = () => (dispatch) => {
 };
 
 export default projectSlice.reducer;
+

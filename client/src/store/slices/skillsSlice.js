@@ -91,7 +91,7 @@ export const getAllSkills = () => async (dispatch) => {
     dispatch(skillSlice.actions.getAllSkillsRequest());
     try {
         const { data } = await axios.get(
-            "http://localhost:4000/api/v1/skill/getall",
+            `${import.meta.env.VITE_API_URL}/api/v1/skill/getall`,
             { withCredentials: true }
         );
         dispatch(skillSlice.actions.getAllSkillsSuccess(data.skills));
@@ -110,7 +110,7 @@ export const addNewSkill = (skillData) => async (dispatch) => {
     dispatch(skillSlice.actions.addNewSkillRequest());
     try {
         const response = await axios.post(
-            "http://localhost:4000/api/v1/skill/add",
+            `${import.meta.env.VITE_API_URL}/api/v1/skill/add`,
             skillData,
             {
                 withCredentials: true,

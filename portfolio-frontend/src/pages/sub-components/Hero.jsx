@@ -13,7 +13,7 @@ const Hero = () => {
   useEffect(() => {
     const getMyProfile = async () => {
       try {
-        const { data } = await axios.get("http://localhost:4000/api/v1/user/me/portfoilo", {
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/user/me/portfoilo`, {
           withCredentials: true
         });
 

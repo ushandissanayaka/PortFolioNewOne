@@ -78,7 +78,7 @@ export const {
 export const getAllTimeline = () => async (dispatch) => {
   dispatch(getAllTimelineRequest());
   try {
-    const { data } = await axios.get("http://localhost:4000/api/v1/timeLine/getall", { withCredentials: true });
+    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/timeLine/getall`, { withCredentials: true });
     dispatch(getAllTimelineSuccess(data.timelines));
   } catch (error) {
     dispatch(getAllTimelineFailed(error.response?.data?.message || "Something went wrong!"));
@@ -89,7 +89,7 @@ export const getAllTimeline = () => async (dispatch) => {
 export const addNewTimeline = (timeLinedata) => async (dispatch) => {
   dispatch(addTimelineRequest());
   try {
-    const { data } = await axios.post("http://localhost:4000/api/v1/timeLine/add", timeLinedata, {
+    const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/timeLine/add`, timeLinedata, {
       withCredentials: true,
     });
     dispatch(addTimelineSuccess(data.message));

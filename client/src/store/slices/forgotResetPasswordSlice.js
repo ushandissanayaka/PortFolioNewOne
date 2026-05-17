@@ -57,7 +57,7 @@ const forgotResetPassSlice = createSlice({
 export const forgotPassword = ( email) => async( dispatch )=>{
    dispatch(forgotResetPassSlice.actions.forgotPasswordRequest());
    try {
-    const {data} = await axios.post("http://localhost:4000/api/v1/user/password/forgot",
+    const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/user/password/forgot`,
          {email},
          {withCredentials: true,headers: { "Content-Type": "application/json"}}
         );

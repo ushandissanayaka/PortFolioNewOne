@@ -73,7 +73,7 @@ export const {
 export const getAllMyWorks = () => async (dispatch) => {
   dispatch(getAllMyWorksRequest());
   try {
-    const { data } = await axios.get("http://localhost:4000/api/v1/myWorks/getall", { withCredentials: true });
+    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/myWorks/getall`, { withCredentials: true });
     dispatch(getAllMyWorksSuccess(data.myWorks));
   } catch (error) {
     dispatch(getAllMyWorksFailed(error.response?.data?.message || "Something went wrong!"));
@@ -83,7 +83,7 @@ export const getAllMyWorks = () => async (dispatch) => {
 export const addNewMyWork = (data) => async (dispatch) => {
   dispatch(addMyWorkRequest());
   try {
-    const response = await axios.post("http://localhost:4000/api/v1/myWorks/add", data, {
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/myWorks/add`, data, {
       withCredentials: true,
       headers: { "Content-Type": "application/json" }
     });
@@ -114,3 +114,4 @@ export const resetMyWorksState = () => (dispatch) => {
 };
 
 export default myWorksSlice.reducer;
+

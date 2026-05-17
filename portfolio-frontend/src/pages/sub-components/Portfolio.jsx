@@ -13,7 +13,7 @@ const Portfolio = () => {
   useEffect(() => {
     const getMyProjects = async () => {
       try {
-        const { data } = await axios.get("http://localhost:4000/api/v1/project/getall", {
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/project/getall`, {
           withCredentials: true,
         });
         if (data.success && Array.isArray(data.projects)) {

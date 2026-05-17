@@ -11,7 +11,7 @@ const MyWorks = () => {
     const fetchMyWorks = async () => {
       try {
         const { data } = await axios.get(
-          'http://localhost:4000/api/v1/myWorks/getall',
+          `${import.meta.env.VITE_API_URL}/api/v1/myWorks/getall`,
           { withCredentials: true }
         );
         setMyWorks(data.myWorks);
@@ -94,3 +94,4 @@ const MyWorks = () => {
 };
 
 export default MyWorks;
+
