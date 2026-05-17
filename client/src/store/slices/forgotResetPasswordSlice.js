@@ -77,7 +77,7 @@ export const forgotPassword = ( email) => async( dispatch )=>{
 export const resetPassword = ( token, passsword, confirmPassword ) => async( dispatch )=>{
     dispatch(forgotResetPassSlice.actions.resetPasswordRequest());
    try {
-    const {data} = await axios.put(`http://localhost:4000/api/v1/user/password/reset/${token}`,
+    const {data} = await axios.put(`${import.meta.env.VITE_API_URL}/api/v1/user/password/reset/${token}`,
          {passsword, confirmPassword},
          {withCredentials: true,headers: { "Content-Type": "application/json"}}
         );

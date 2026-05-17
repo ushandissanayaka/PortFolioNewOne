@@ -102,7 +102,7 @@ export const addNewTimeline = (timeLinedata) => async (dispatch) => {
 export const deleteTimeline = (id) => async (dispatch) => {
   dispatch(deleteTimelineRequest());
   try {
-    const { data } = await axios.delete(`http://localhost:4000/api/v1/timeLine/delete/${id}`, {
+    const { data } = await axios.delete(`${import.meta.env.VITE_API_URL}/api/v1/timeLine/delete/${id}`, {
       withCredentials: true,
     });
     dispatch(deleteTimelineSuccess({ message: data.message, id }));

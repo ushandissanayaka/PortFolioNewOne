@@ -20,7 +20,7 @@ const UpdateProject = () => {
   useEffect(() => {
     const getProject = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/v1/project/get/${id}`, {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/project/get/${id}`, {
           withCredentials: true,
         });
         const project = res.data.project;
@@ -57,7 +57,7 @@ const UpdateProject = () => {
     }
 
     try {
-      const res = await axios.put(`http://localhost:4000/api/v1/project/update/${id}`, formData, {
+      const res = await axios.put(`${import.meta.env.VITE_API_URL}/api/v1/project/update/${id}`, formData, {
         withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data',

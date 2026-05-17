@@ -18,7 +18,7 @@ const ViewProjects = () => {
   useEffect(() => {
     const getProjects = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/v1/project/get/${id}`, {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/project/get/${id}`, {
           withCredentials: true,
         });
         const project = res.data.project;

@@ -96,7 +96,7 @@ export const addNewMyWork = (data) => async (dispatch) => {
 export const deleteMyWork = (id) => async (dispatch) => {
   dispatch(deleteMyWorkRequest());
   try {
-    const { data } = await axios.delete(`http://localhost:4000/api/v1/myWorks/delete/${id}`, {
+    const { data } = await axios.delete(`${import.meta.env.VITE_API_URL}/api/v1/myWorks/delete/${id}`, {
       withCredentials: true,
     });
     dispatch(deleteMyWorkSuccess({ message: data.message, id }));
