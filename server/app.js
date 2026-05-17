@@ -11,14 +11,25 @@ import myWorksRouter from "./routes/myWorksRoutes.js";
 import applicationRouter from "./routes/softwareApplicationRoutes.js";
 import skillRouter from "./routes/skillRoutes.js";
 import projectRouter from "./routes/projectRoutes.js";
-
+import cloudinary from "cloudinary";
 
 const app = express();
 
 dotenv.config({ path: "./config/config.env" });
 
+cloudinary.v2.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+
+
 app.use(cors({
-    origin: [process.env.PORTFOLIO_URL, process.env.DASHBOARD_URL],
+    origin: function(origin, callback) {
+        // Allow all origins
+        callback(null, true);
+    },
     methods: ["GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"],
     credentials: true,
 }));

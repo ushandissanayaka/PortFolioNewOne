@@ -133,7 +133,7 @@ export const deleteSkill = (skillId) => async (dispatch) => {
     dispatch(skillSlice.actions.deleteSkillRequest());
     try {
         const response = await axios.delete(
-            `http://localhost:4000/api/v1/skill/delete/${skillId}`,
+            `${import.meta.env.VITE_API_URL}/api/v1/skill/delete/${skillId}`,
             { withCredentials: true }
         );
         dispatch(skillSlice.actions.deleteSkillSuccess({ id: skillId, message: response.data.message }));
@@ -152,7 +152,7 @@ export const updateSkills = (id, proficiency) => async (dispatch) => {
     dispatch(skillSlice.actions.updateSkillRequest());
     try {
         const { data } = await axios.put(
-            `http://localhost:4000/api/v1/skill/update/${id}`,
+            `${import.meta.env.VITE_API_URL}/api/v1/skill/update/${id}`,
             { proficiency },
             { withCredentials: true, headers: { "Content-Type": "application/json" } }
         );

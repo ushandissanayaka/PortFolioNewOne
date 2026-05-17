@@ -131,7 +131,7 @@ export const deleteSoftwareApplication = (applicationId) => async (dispatch) => 
   dispatch(deleteApplicationRequest());
   try {
     const response = await axios.delete(
-      `http://localhost:4000/api/v1/softwareApplication/delete/${applicationId}`,
+      `${import.meta.env.VITE_API_URL}/api/v1/softwareApplication/delete/${applicationId}`,
       { withCredentials: true }
     );
     dispatch(
